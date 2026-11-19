@@ -1,0 +1,775 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Casa Cara Blanca</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..700&display=swap">
+<style>
+/* Single light theme on purpose: artwork is always shown on a white gallery wall. */
+/* Layout: an exhibition catalogue. 12-column asymmetric grid, full-bleed images, thin condensed capitals, tiny wide labels, wall-label captions. */
+:root {
+  color-scheme: light;
+  --wall: #f6f7f5;      /* lime-plaster white */
+  --wall-2: #ecedea;    /* shadowed plaster */
+  --ink: #1d221f;       /* charcoal */
+  --ink-soft: #6a716c;  /* graphite */
+  --line: #d9ddd8;
+  --accent: #2f5d50;    /* Andean green */
+  --fill: #b08a2e;      /* draft markers */
+  --fill-ink: #8a6a1c;
+  --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --gutter-l: max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(20px, env(safe-area-inset-right, 0px));
+  --t-label: 0.68rem;
+  --t-small: 0.86rem;
+  --t-body: clamp(1rem, 0.97rem + 0.15vw, 1.08rem);
+  --t-lead: clamp(1.3rem, 1.05rem + 1.1vw, 2rem);
+  --t-h2: clamp(1.9rem, 1.3rem + 2.6vw, 3.6rem);
+  --t-h1: clamp(2.3rem, 1.5rem + 3.4vw, 4.8rem);
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+@media (min-width: 900px) { :root { --gutter-l: max(48px, env(safe-area-inset-left, 0px)); --gutter-r: max(48px, env(safe-area-inset-right, 0px)); } }
+/* Casa Cara Blanca: wall gray sampled from the house's plaster walls */
+body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall-2: #cdcec9; --ink-soft: #4d524f; --line: #b5b7b1; --fill-ink: #6b5213; }
+/* The works: a white gallery wall */
+[data-view="casa-cara-blanca"] .works { background: #fff; padding-top: clamp(48px, 7vw, 104px); }
+[data-view="casa-cara-blanca"] .works .ph { background: #f1f1ef; }
+
+* { box-sizing: border-box; }
+body { background: var(--wall); color: var(--ink); font-family: var(--font); font-size: var(--t-body); line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 200; font-stretch: 72%; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.92; text-wrap: balance; }
+.label { font-size: var(--t-label); font-stretch: 118%; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); }
+.fill { color: var(--fill-ink); border-bottom: 1px dotted var(--fill); }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+
+.pad { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); }
+.grid > * { grid-column: 1 / -1; min-width: 0; }
+
+/* Draft note */
+.draft { position: fixed; z-index: 30; left: calc(env(safe-area-inset-left, 0px) + 12px); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); background: color-mix(in srgb, var(--wall) 86%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--line); padding: 6px 12px; font-size: var(--t-label); letter-spacing: .14em; text-transform: uppercase; font-stretch: 112%; color: var(--ink-soft); max-width: calc(100vw - 24px); }
+
+/* Header */
+header.site { position: relative; z-index: 20; }
+header.site .bar { display: flex; justify-content: space-between; align-items: center; padding-block: 28px; }
+.name { text-decoration: none; font-size: 0.82rem; font-weight: 400; font-stretch: 118%; letter-spacing: 0.32em; text-transform: uppercase; }
+nav.main { display: flex; gap: 36px; }
+nav.main a { text-decoration: none; font-size: var(--t-label); font-stretch: 118%; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); padding-block: 4px; border-bottom: 1px solid transparent; transition: color .3s; }
+nav.main a:hover { color: var(--ink); }
+nav.main a[aria-current] { color: var(--ink); border-bottom-color: var(--ink); }
+.menu-btn { display: none; background: none; border: 0; font: inherit; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); padding: 8px 0; cursor: pointer; }
+@media (max-width: 760px) {
+  nav.main { display: none; }
+  .menu-btn { display: block; }
+  header.site.open nav.main { display: flex; position: fixed; inset: 0; background: var(--wall); flex-direction: column; justify-content: center; gap: 18px; padding-left: var(--gutter-l); padding-right: var(--gutter-r); z-index: 25; }
+  header.site.open nav.main a { font-size: clamp(2.4rem, 12vw, 4rem); font-weight: 200; font-stretch: 72%; letter-spacing: .01em; color: var(--ink); border: 0; }
+  header.site.open .menu-btn { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 28px); right: var(--gutter-r); z-index: 26; }
+}
+
+/* Images */
+.ph { position: relative; width: 100%; max-width: 100%; background: var(--wall-2); overflow: hidden; }
+.ph canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: transform 1.6s var(--ease); }
+a:hover .ph canvas, .zoom:hover canvas { transform: scale(1.025); }
+.r-219 { aspect-ratio: 21 / 9; } .r-169 { aspect-ratio: 16 / 9; } .r-32 { aspect-ratio: 3 / 2; } .r-43 { aspect-ratio: 4 / 3; } .r-45 { aspect-ratio: 4 / 5; } .r-23 { aspect-ratio: 2 / 3; } .r-11 { aspect-ratio: 1 / 1; }
+@media (max-width: 700px) { .m-45 { aspect-ratio: 4 / 5; } }
+figure { margin: 0; display: grid; gap: 12px; }
+figcaption { display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: var(--t-small); color: var(--ink-soft); }
+figcaption .label { color: var(--ink); }
+.bleed { margin-left: calc(-1 * var(--gutter-l)); margin-right: calc(-1 * var(--gutter-r)); }
+.bleed figcaption { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-in canvas { animation: settle 2.4s var(--ease) both; }
+  @keyframes settle { from { transform: scale(1.06); } to { transform: scale(1); } }
+  .rise { animation: rise 1.1s var(--ease) both; }
+  .rise.d1 { animation-delay: .12s; } .rise.d2 { animation-delay: .24s; }
+  @keyframes rise { from { transform: translateY(14px); } to { transform: none; } }
+}
+
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.6s var(--ease); }
+a:hover .ph img, .zoom:hover .ph img { transform: scale(1.025); }
+@media (prefers-reduced-motion: no-preference) { .hero-in img { animation: settle 2.4s var(--ease) both; } }
+.hero-pair { display: grid; gap: 4px; grid-template-columns: 1fr; }
+.hero-pair > .ph:nth-child(2) { display: none; }
+@media (min-width: 760px) { .hero-pair { grid-template-columns: 1fr 1fr; } .hero-pair > .ph:nth-child(2) { display: block; } }
+.works { padding-bottom: clamp(56px, 8vw, 120px); display: grid; gap: 28px; }
+.works-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--ink); padding-bottom: 14px; }
+.works-head h2 { font-size: var(--t-h2); }
+.works-grid { display: grid; gap: clamp(36px, 5vw, 64px) clamp(16px, 2.5vw, 40px); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .works-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } .works-grid .wa { grid-column: span 4; } .works-grid .wb { grid-column: span 2; align-self: end; } .works-grid .wc { grid-column: span 3; } }
+.wall-label { display: grid; gap: 2px; font-size: var(--t-small); color: var(--ink-soft); }
+.wall-label .t { color: var(--ink); font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; }
+.essay { display: grid; gap: clamp(12px, 2vw, 28px); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .essay { grid-template-columns: 1.3fr 1fr; } .essay .tall { grid-row: span 2; } }
+
+/* ---------- Home / Projects ---------- */
+.statement { padding-block: clamp(64px, 10vw, 160px); }
+.statement p { font-size: var(--t-lead); line-height: 1.3; font-weight: 200; }
+@media (min-width: 900px) { .statement .label { grid-column: 1 / 4; padding-top: 12px; } .statement p { grid-column: 4 / 12; } }
+.statement .label { margin-bottom: 20px; }
+
+.selected { display: grid; gap: clamp(72px, 10vw, 160px); padding-bottom: clamp(80px, 10vw, 160px); }
+.work { text-decoration: none; display: grid; row-gap: 20px; }
+.work .meta { display: grid; gap: 14px; align-content: end; }
+.work h2 { font-size: var(--t-h2); }
+.work .num { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; color: var(--ink-soft); }
+.work .more { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; border-bottom: 1px solid var(--ink); justify-self: start; padding-bottom: 3px; }
+.work .soon { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
+@media (min-width: 900px) {
+  .work.w1 .ph-wrap { grid-column: 1 / 9; } .work.w1 .meta { grid-column: 9 / 13; }
+  .work.w2 .ph-wrap { grid-column: 6 / 13; grid-row: 1; } .work.w2 .meta { grid-column: 2 / 6; grid-row: 1; }
+  .work.w3 .ph-wrap { grid-column: 2 / 7; } .work.w3 .meta { grid-column: 8 / 12; }
+  .work.w4 .ph-wrap { grid-column: 5 / 12; grid-row: 1; } .work.w4 .meta { grid-column: 1 / 5; grid-row: 1; }
+}
+
+.index { padding-bottom: clamp(80px, 10vw, 160px); }
+.index-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--ink); padding-bottom: 14px; }
+.index-head h2 { font-size: var(--t-h2); }
+.filters { display: flex; gap: 6px 26px; flex-wrap: wrap; }
+.filters button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 4px 0; font: inherit; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); cursor: pointer; }
+.filters button:hover { color: var(--ink); }
+.filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.rows { list-style: none; margin: 0; padding: 0; }
+.rows li { position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.rows .n { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; color: var(--ink-soft); }
+.rows h3 { font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.4rem); transition: transform .5s var(--ease); }
+.rows .k { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); text-align: right; }
+.rows .thumb { display: none; }
+@media (hover: hover) and (min-width: 900px) {
+  .rows .thumb { display: block; position: absolute; right: 22%; top: 50%; width: 220px; transform: translateY(-50%); opacity: 0; transition: opacity .4s var(--ease); pointer-events: none; z-index: 2; }
+  .rows li:hover .thumb { opacity: 1; }
+  .rows li:hover h3 { transform: translateX(10px); }
+}
+
+/* ---------- Case study ---------- */
+.cs-top { padding-block: 8px clamp(28px, 4vw, 48px); display: grid; gap: 18px; }
+.back { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; }
+.back:hover { color: var(--ink); }
+.cs-top h1 { font-size: var(--t-h1); }
+.cs-intro { padding-block: clamp(56px, 8vw, 120px); row-gap: 40px; }
+.cs-intro .lead { font-size: var(--t-lead); font-weight: 200; line-height: 1.3; }
+.spec { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 24px; margin: 0; font-size: var(--t-small); align-content: start; }
+.spec dt { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); padding-top: 3px; }
+.spec dd { margin: 0; }
+@media (min-width: 900px) { .cs-intro .lead { grid-column: 1 / 8; } .cs-intro .spec { grid-column: 9 / 13; } }
+
+.chapter { padding-block: clamp(56px, 8vw, 120px); border-top: 1px solid var(--line); row-gap: 28px; }
+.chapter .side { display: grid; gap: 10px; align-content: start; }
+.chapter .side .no { font-size: clamp(2.6rem, 2rem + 2.5vw, 4.4rem); font-weight: 100; font-stretch: 72%; line-height: .9; color: var(--accent); }
+.chapter .side h2 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem); }
+.chapter .body { display: grid; gap: 22px; max-width: 60ch; }
+.chapter .body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+@media (min-width: 900px) { .chapter .side { grid-column: 1 / 5; } .chapter .body { grid-column: 6 / 12; } .chapter .wide { grid-column: 1 / -1; } }
+
+.steps { display: grid; gap: clamp(56px, 7vw, 96px); padding-top: 24px; }
+.stepx { display: grid; row-gap: 18px; }
+.stepx .head { display: grid; gap: 6px; }
+.stepx .head .no { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; color: var(--accent); }
+.stepx h3 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.2rem); }
+.stepx p { max-width: 54ch; }
+.stepx .imgs { display: grid; gap: clamp(12px, 2vw, 32px); grid-template-columns: 1fr; }
+@media (min-width: 900px) {
+  .stepx .text { grid-column: 1 / 5; } .stepx .imgs { grid-column: 6 / 13; }
+  .stepx.flip .text { grid-column: 9 / 13; grid-row: 1; } .stepx.flip .imgs { grid-column: 1 / 8; grid-row: 1; }
+  .stepx .imgs.two { grid-template-columns: 1.4fr 1fr; align-items: end; }
+}
+
+.palette { display: grid; gap: 16px; }
+.chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); gap: 2px; }
+.chip { display: grid; gap: 10px; }
+.chip i { display: block; aspect-ratio: 1 / 2.2; }
+.chip span { font-size: var(--t-label); font-stretch: 112%; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 520px) { .chip i { aspect-ratio: 1 / 1.6; } .chip span { letter-spacing: .06em; font-size: .6rem; } }
+
+.pair { display: grid; gap: clamp(12px, 2vw, 32px); grid-template-columns: 1fr 1fr; }
+.pair figcaption { display: grid; gap: 2px; }
+@media (max-width: 520px) { .pair { grid-template-columns: 1fr; } }
+
+.twist { display: grid; row-gap: 24px; padding-block: clamp(40px, 6vw, 80px) 0; }
+.twist blockquote { margin: 0; font-size: var(--t-lead); font-weight: 200; line-height: 1.3; }
+.twist .q { display: grid; gap: 18px; }
+@media (min-width: 900px) { .twist .q { grid-column: 1 / 6; align-self: center; } .twist figure { grid-column: 7 / 13 !important; } }
+
+.insights { list-style: none; margin: 0; padding: 0; display: grid; }
+.insights li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 16px; padding-block: 18px; border-top: 1px solid var(--line); }
+.insights .n { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; color: var(--accent); padding-top: 6px; }
+
+.next { display: grid; gap: 16px; padding-block: clamp(80px, 12vw, 180px); border-top: 1px solid var(--ink); text-decoration: none; }
+.next h2 { font-size: var(--t-h1); transition: color .4s; }
+.next:hover h2 { color: var(--accent); }
+
+/* ---------- Reveal features ---------- */
+details.more { margin-top: -6px; }
+details.more summary { list-style: none; cursor: pointer; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); display: inline-flex; gap: 10px; align-items: center; padding-block: 6px; border-bottom: 1px solid var(--ink); }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::before { content: "+"; font-weight: 200; font-size: 1rem; line-height: 1; transition: transform .4s var(--ease); }
+details.more[open] summary::before { transform: rotate(45deg); }
+details.more[open] summary .o { display: none; } details.more:not([open]) summary .c { display: none; }
+details.more .inner { display: grid; gap: 18px; padding-top: 22px; }
+@media (prefers-reduced-motion: no-preference) { details.more[open] .inner { animation: rise .7s var(--ease) both; } }
+
+.cards { list-style: none; margin: 0; padding: 8px 0 0; display: grid; gap: clamp(16px, 2vw, 28px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+@media (max-width: 700px) {
+  .cards { grid-auto-flow: column; grid-auto-columns: 78%; grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; margin-right: calc(-1 * var(--gutter-r)); padding-right: var(--gutter-r); scrollbar-width: thin; }
+  .cards > li { scroll-snap-align: start; }
+}
+.cards > li { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.reveal { all: unset; display: block; position: relative; cursor: pointer; overflow: hidden; }
+.reveal:focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
+.reveal .ph { display: block; }
+.veil { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: clamp(16px, 2vw, 24px); background: color-mix(in srgb, var(--wall) 90%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-size: var(--t-small); line-height: 1.55; color: var(--ink); clip-path: inset(100% 0 0 0); transition: clip-path .7s var(--ease); }
+.reveal:hover .veil, .reveal:focus-visible .veil, .reveal[aria-expanded="true"] .veil { clip-path: inset(0 0 0 0); }
+.veil .label { color: var(--accent); }
+.cap { display: grid; gap: 4px; }
+.cap .no { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; color: var(--accent); }
+.cap h3 { font-size: clamp(1.2rem, 1rem + .7vw, 1.6rem); }
+.cap .hint { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.cap .hint .t { display: none; } @media (hover: none) { .cap .hint .h { display: none; } .cap .hint .t { display: inline; } }
+/* Process cards: text always visible below the image, no white overlay */
+.cards .reveal { display: contents; cursor: default; }
+.cards .reveal .ph { order: 1; }
+.cards .cap { order: 2; }
+.cards .veil { order: 3; position: static; clip-path: none; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0; color: var(--ink-soft); justify-content: flex-start; }
+.cards .veil .label, .cards .cap .hint { display: none; }
+
+.compare { position: relative; --pos: 50%; overflow: hidden; touch-action: pan-y; }
+.compare .ph { display: block; }
+.compare .ph.top { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; clip-path: inset(0 0 0 var(--pos)); }
+.compare .handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 1px; background: rgba(255,255,255,.95); box-shadow: 0 0 0 .5px rgba(0,0,0,.15); pointer-events: none; }
+.compare .handle::after { content: "‹  ›"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.95); background: rgba(29,34,31,.25); backdrop-filter: blur(4px); color: #fff; display: grid; place-items: center; font-size: .9rem; letter-spacing: .1em; }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.compare .ctag { position: absolute; top: 12px; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; background: color-mix(in srgb, var(--wall) 85%, transparent); padding: 3px 9px; pointer-events: none; }
+.compare .ctag.l { left: 12px; } .compare .ctag.r { right: 12px; }
+.compares { display: grid; gap: clamp(28px, 4vw, 48px); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .compares { grid-template-columns: 1fr 1fr; } }
+.compares figcaption { display: grid; gap: 2px; }
+
+/* ---------- Gallery ---------- */
+.page-top { padding-block: 8px clamp(40px, 6vw, 80px); display: grid; gap: 24px; }
+.page-top h1 { font-size: var(--t-h1); }
+.masonry { columns: 1; column-gap: clamp(16px, 2.5vw, 40px); padding-bottom: 120px; }
+@media (min-width: 620px) { .masonry { columns: 2; } }
+@media (min-width: 1000px) { .masonry { columns: 3; } }
+.masonry figure { break-inside: avoid; margin-bottom: clamp(36px, 5vw, 64px); }
+.masonry figcaption { display: grid; gap: 2px; }
+.masonry figcaption .t { color: var(--ink); font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; }
+
+/* ---------- About / Commission ---------- */
+.about { padding-bottom: 120px; row-gap: 40px; }
+.about .text { display: grid; gap: 22px; }
+.about .text .lead { font-size: var(--t-lead); font-weight: 200; line-height: 1.3; }
+@media (min-width: 900px) { .about .ph-wrap { grid-column: 1 / 6; } .about .text { grid-column: 7 / 12; align-self: end; } }
+.how { list-style: none; margin: 0; padding: 0 0 80px; display: grid; gap: 0; grid-template-columns: 1fr; border-top: 1px solid var(--ink); }
+.how li { display: grid; gap: 10px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.how .no { font-size: clamp(2.4rem, 2rem + 2vw, 4rem); font-weight: 100; font-stretch: 72%; line-height: .9; color: var(--accent); }
+.how h3 { font-size: 1.3rem; }
+@media (min-width: 900px) { .how { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 28px; } .how li { border-bottom: 0; } }
+.contact-line { font-size: var(--t-lead); font-weight: 200; padding-bottom: 140px; }
+
+footer.site { border-top: 1px solid var(--line); }
+footer.site .bar { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 28px 64px; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+</style>
+
+<div class="draft">Draft · <span class="fill">gold</span> = to fill in</div>
+
+<header class="site" id="top">
+  <div class="bar pad">
+    <a class="name" href="#projects">Daniela Marin</a>
+    <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav class="main" id="main-nav" aria-label="Main">
+      <a href="#projects">Projects</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#commission">Commission</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= PROJECTS (home) ================= -->
+<div class="view" data-view="projects">
+  <div class="pad">
+    <figure class="bleed hero-in hero-pair">
+      <div class="ph r-45"><img src="img/ccb-hallway-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="A large painting of luminous orange, pink and violet folds on a grey ground, lit by a warm cove light in a long gallery hallway" fetchpriority="high" decoding="async" style="object-position:50% 50%"></div>
+      <div class="ph r-45"><img src="img/ccb-living-room-seated-1400.webp" sizes="50vw" alt="Daniela seated in the living room, with the white face relief painting in the background" fetchpriority="high" decoding="async" style="object-position:40% 50%"></div>
+    </figure>
+  </div>
+
+  <section class="statement pad">
+    <div class="grid">
+      <span class="label">Daniela Marin · Artist</span>
+      <p class="rise">I design how people experience space through meaningful narratives, reflected in my paintings, public art, scenery for theme parks, and interfaces for screens. Each piece is carefully thought out and conceptualized for its environment, and for the people who live with it and use it.</p>
+    </div>
+  </section>
+
+  <section class="selected pad" aria-label="Selected work">
+    <a class="work w1 grid" href="#casa-cara-blanca">
+      <div class="ph-wrap"><div class="ph r-43"><img src="img/ccb-bedroom-1400.webp" sizes="(min-width: 900px) 66vw, 100vw" alt="The main bedroom, with wood panelling, warm cove lighting and a black fluted relief panel on the wall"  decoding="async" style="object-position:50% 50%"></div></div>
+      <div class="meta">
+        <span class="num">01</span>
+        <span class="label">Commission · Private residence</span>
+        <h2>Casa Cara Blanca</h2>
+        <p>A family, a house and walls that didn't yet tell their story. Paintings promised before they were painted, and delivered as promised.</p>
+        <span class="more">View project</span>
+      </div>
+    </a>
+    <div class="work w2 grid">
+      <div class="ph-wrap"><div class="ph r-32" data-kind="architecture" data-seed="21"></div></div>
+      <div class="meta">
+        <span class="num">02</span>
+        <span class="label">Public art · Englewood, Colorado · 2024</span>
+        <h2>Yale &amp; Broadway</h2>
+        <span class="soon">Story in progress</span>
+      </div>
+    </div>
+    <div class="work w3 grid">
+      <a class="ph-wrap zoom" href="https://www.youtube.com/watch?v=plcgsCkU0xw" target="_blank" rel="noopener" aria-label="Watch Beauty and the Beast at Tokyo Disneyland on YouTube"><div class="ph r-45" data-kind="video" data-seed="31"></div></a>
+      <div class="meta">
+        <span class="num">03</span>
+        <span class="label">Scenic · Tokyo Disneyland</span>
+        <h2>Scenic paint lead</h2>
+        <a class="more" href="https://www.youtube.com/watch?v=plcgsCkU0xw" target="_blank" rel="noopener" style="text-decoration:none">Watch the attraction ↗</a>
+        <span class="soon">Story in progress</span>
+      </div>
+    </div>
+    <div class="work w4 grid">
+      <div class="ph-wrap"><div class="ph r-169" data-kind="wire" data-seed="41"></div></div>
+      <div class="meta">
+        <span class="num">04</span>
+        <span class="label">Design &amp; UX · DePaul · 2026</span>
+        <h2>Sort It Out Chicago</h2>
+        <span class="soon">Story in progress</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="index pad" aria-labelledby="idx">
+    <div class="index-head">
+      <h2 id="idx">Index</h2>
+      <div class="filters" role="group" aria-label="Filter projects" data-filter-group="index">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="commission" aria-pressed="false">Commissions</button>
+        <button type="button" data-filter="public" aria-pressed="false">Public art</button>
+        <button type="button" data-filter="scenic" aria-pressed="false">Scenic</button>
+        <button type="button" data-filter="design" aria-pressed="false">Design &amp; UX</button>
+      </div>
+    </div>
+    <ul class="rows" data-filter-items="index">
+      <li data-tags="commission"><span class="n">01</span><h3><a href="#casa-cara-blanca" style="text-decoration:none">Casa Cara Blanca</a></h3><span class="k">Commission</span><div class="thumb"><div class="ph r-43"><img src="img/ccb-proposal-bloom-800.webp" sizes="220px" alt="Proposal sheet for the bloom painting, drawn to scale with its wall dimensions"  decoding="async" style="object-position:50% 50%"></div></div></li>
+      <li data-tags="public"><span class="n">02</span><h3>Yale &amp; Broadway</h3><span class="k">Public art</span><div class="thumb"><div class="ph r-43" data-kind="architecture" data-seed="21"></div></div></li>
+      <li data-tags="scenic"><span class="n">03</span><h3>Scenic paint lead, Tokyo</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="wip" data-seed="31"></div></div></li>
+      <li data-tags="design"><span class="n">04</span><h3>Sort It Out Chicago</h3><span class="k">Design &amp; UX</span><div class="thumb"><div class="ph r-43" data-kind="wire" data-seed="41"></div></div></li>
+      <li data-tags="scenic"><span class="n">05</span><h3>Universal Studios</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="field" data-seed="51"></div></div></li>
+      <li data-tags="scenic"><span class="n">06</span><h3>National Geographic</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="field" data-seed="61"></div></div></li>
+      <li data-tags="scenic"><span class="n">07</span><h3>Cirque du Soleil</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="field" data-seed="71"></div></div></li>
+      <li data-tags="public"><span class="n">08</span><h3>Museum of Outdoor Arts</h3><span class="k">Public art</span><div class="thumb"><div class="ph r-43" data-kind="architecture" data-seed="81"></div></div></li>
+      <li data-tags="design"><span class="n">09</span><h3>Online wall-art storefronts</h3><span class="k">Design</span><div class="thumb"><div class="ph r-43" data-kind="wire" data-seed="91"></div></div></li>
+    </ul>
+  </section>
+</div>
+
+<!-- ================= CASA CARA BLANCA ================= -->
+<div class="view" data-view="casa-cara-blanca" hidden>
+  <div class="cs-top pad">
+    <a class="back" href="#projects">← Projects</a>
+    <span class="label">01 · Commission · Private residence</span>
+    <h1 class="rise">Casa Cara Blanca</h1>
+  </div>
+  <div class="pad">
+    <figure class="bleed hero-in">
+      <div class="hero-pair">
+        <div class="ph r-45"><img src="img/ccb-ribbons-beside-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Daniela standing beside a large painting of pink, orange and yellow ribbons on a black ground" fetchpriority="high" decoding="async" style="object-position:50% 35%"></div>
+        <div class="ph r-45"><img src="img/ccb-hallway-walk-1400.webp" sizes="50vw" alt="Daniela walking down the glass hallway past the ribbon painting" fetchpriority="high" decoding="async" style="object-position:50% 50%"></div>
+      </div>
+      <figcaption><span class="label">Final · installed</span><span>Casa Cara Blanca. Private Collection</span></figcaption>
+    </figure>
+  </div>
+
+  <section class="cs-intro grid pad">
+    <p class="lead">Every home holds a story waiting to be told. For one family, I painted theirs: pieces made for the shape and light of their house, and for the people who live in it.</p>
+    <dl class="spec">
+      <dt>Client</dt><dd>Private family residence</dd>
+      <dt>Year</dt><dd>2026</dd>
+      <dt>Works</dt><dd>6 works, acrylic on canvas and sculptural relief on wood</dd>
+      <dt>With</dt><dd>Interior designer / architect</dd>
+      <dt>Role</dt><dd>Concept, proposals, renderings, painting, delivery</dd>
+    </dl>
+  </section>
+
+  <section class="works pad" aria-labelledby="works-h">
+    <div class="works-head"><h2 id="works-h">The works</h2><span class="label">Six pieces for one house</span></div>
+    <div class="works-grid">
+      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 760px) 66vw, 100vw" alt="Painting of interlaced pink, orange, yellow and blue ribbons on a black ground"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Floating Together</span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
+      <figure class="wb zoom"><div class="ph r-23"><img src="img/ccb-work-relief-black-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Black relief panel with vertical fluting and a sweeping smooth curve"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">River of Four Currents</span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
+      <figure class="wc zoom"><div class="ph r-32"><img src="img/ccb-work-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Painting of a floating bloom of orange, pink, violet and blue folds on a pale grey ground"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t"><span class="fill">Title</span></span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
+      <figure class="wc zoom"><div class="ph r-32"><img src="img/ccb-work-geometric-pair-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="A pair of paintings of balanced geometric forms in blue, pink, orange and grey"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t"><span class="fill">Title</span> (diptych)</span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
+      <figure class="wb zoom" style="grid-column:auto"><div class="ph r-45"><img src="img/ccb-white-face-detail-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Daniela beside the white relief painting of a face with closed eyes"  decoding="async" style="object-position:50% 30%"></div><figcaption class="wall-label"><span class="t"><span class="fill">Title</span></span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- I. Problem & Context -->
+  <section class="chapter grid pad" aria-labelledby="c1">
+    <div class="side"><span class="no">I</span><span class="label">The brief</span><h2 id="c1">A house, waiting</h2></div>
+    <div class="body">
+      <p>The family was redesigning their home with an interior designer. The rooms were taking shape, but the walls were still silent.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p>They didn't want art that could hang anywhere. They wanted pieces that belonged to this house and meant something to them.</p><p>So the work had three jobs: fit the architecture, carry the family's story, and earn their trust before a single brushstroke.</p></div></details>
+    </div>
+  </section>
+
+  <!-- II. Role -->
+  <section class="chapter grid pad" aria-labelledby="c2">
+    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="c2">One hand, start to finish</h2></div>
+    <div class="body">
+      <p>I led the work from the first conversation to the moment each painting went up on the wall.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+        <li>Developed the concept that ties each piece to the family</li>
+        <li>Proposed a range of works for the family to choose from</li>
+        <li>Staged the chosen pieces in renderings of the real rooms</li>
+        <li>Coordinated with the interior designer / architect</li>
+        <li>Painted and delivered every piece</li>
+      </ul></div></details>
+    </div>
+  </section>
+
+  <!-- III. Process -->
+  <section class="chapter grid pad" aria-labelledby="c3">
+    <div class="side"><span class="no">III</span><span class="label">Research methods used</span><h2 id="c3">How it came to life</h2></div>
+    <div class="body"><p>Seven steps. In each one, listening came before painting.</p></div>
+    <ol class="wide cards">
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st01">
+          <span class="ph r-45"><img src="img/ccb-before-bedroom-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="The main bedroom before the art: bare wood-panelled walls under warm cove lighting"  decoding="async" style="object-position:50% 50%"></span>
+          <span class="veil" id="st01"><span class="label">01 · Study the space</span><span>Before choosing a single color, I studied the walls: their size, the light, the sightlines, the way people move from room to room. I started from photographs of the empty rooms and measured every wall.</span></span>
+        </button>
+        <div class="cap"><span class="no">01 · Study the space</span><h3>Reading the house</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st02">
+          <span class="ph r-45" data-kind="field" data-seed="103"></span>
+          <span class="veil" id="st02"><span class="label">02 · Listen</span><span>These paintings had to be about them. <span class="fill">How did you learn their story?</span> That story became the concept: <span class="fill">the concept in one sentence</span>.</span></span>
+        </button>
+        <div class="cap"><span class="no">02 · Listen</span><h3>Listening to the family</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st03">
+          <span class="ph r-45"><img src="img/ccb-proposal-geometric-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Proposal sheet: two geometric compositions in blue, pink and orange, each drawn to scale with its wall dimensions"  decoding="async" style="object-position:50% 50%"></span>
+          <span class="veil" id="st03"><span class="label">03 · Propose</span><span>Instead of asking the family to imagine, I showed them. A range of proposals let them compare, react and choose. They chose <span class="fill">#</span> of <span class="fill">#</span>.</span></span>
+        </button>
+        <div class="cap"><span class="no">03 · Propose</span><h3>Showing, not asking</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st04">
+          <span class="ph r-45"><img src="img/ccb-render-bedroom-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Rendering of the main bedroom with the black relief panel placed above the bed"  decoding="async" style="object-position:35% 50%"></span>
+          <span class="veil" id="st04"><span class="label">04 · Prototype</span><span>I placed the chosen pieces into renderings of their own rooms. Scale, color and placement were decided before any paint touched canvas. No guessing, no surprises.</span></span>
+        </button>
+        <div class="cap"><span class="no">04 · Prototype</span><h3>Seeing it before it exists</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st05">
+          <span class="ph r-45"><img src="img/ccb-render-exterior-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Rendering of the house's garden facade with paintings and a sculpture placed along the glass wall"  decoding="async" style="object-position:60% 50%"></span>
+          <span class="veil" id="st05"><span class="label">05 · Collaborate</span><span>I worked alongside the interior designer, so the art and the rooms were designed as one. <span class="fill">What did you align on?</span></span></span>
+        </button>
+        <div class="cap"><span class="no">05 · Collaborate</span><h3>Designing the rooms together</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st06">
+          <span class="ph r-45" data-kind="wip" data-seed="108"></span>
+          <span class="veil" id="st06"><span class="label">06 · Make</span><span>With every decision made, the painting could be free and focused. <span class="fill">Medium, sizes and how long it took.</span></span></span>
+        </button>
+        <div class="cap"><span class="no">06 · Make</span><h3>In the studio</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+      <li>
+        <button class="reveal" type="button" aria-expanded="false" aria-controls="st07">
+          <span class="ph r-45"><img src="img/ccb-house-exterior-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="The house seen from the driveway, its cantilevered volumes above a planted slope"  decoding="async" style="object-position:45% 50%"></span>
+          <span class="veil" id="st07"><span class="label">07 · Deliver</span><span>The paintings arrived as promised and took their place in the house they were made for.</span></span>
+        </button>
+        <div class="cap"><span class="no">07 · Deliver</span><h3>Arrival</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- IV. Insights -->
+  <section class="chapter grid pad" aria-labelledby="c4">
+    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="c4">What this taught me</h2></div>
+    <div class="body">
+      <ol class="insights"><li><span class="n">01</span><p>Choosing from real options was easier for the family than describing what they wanted from scratch.</p></li><li><span class="n">02</span><p>Seeing the work in renderings of their own rooms built trust before any painting existed.</p></li></ol><details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ol class="insights"><li><span class="n">03</span><p>Art and interiors work better designed together than added at the end.</p></li><li><span class="n">04</span><p>Meaning matters as much as fit: the pieces had to be about this family, not only sized for this wall.</p></li></ol></div></details>
+      <p class="label"><span class="fill">Drafts from your summary: keep, change or replace</span></p>
+    </div>
+  </section>
+
+  <!-- V. Decisions -->
+  <section class="chapter grid pad" aria-labelledby="c5">
+    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="c5">The promise, kept</h2></div>
+    <div class="body">
+      <p>What the family approved is what they received. Below, each rendering sits beside the finished painting.</p>
+      <div class="palette">
+        <span class="label">Project color palette</span>
+        <div class="chips"><div class="chip"><i style="background:#232224"></i><span><span class="fill">Charcoal ground</span></span></div><div class="chip"><i style="background:#e83d5b"></i><span><span class="fill">Fuchsia</span></span></div><div class="chip"><i style="background:#ef6d72"></i><span><span class="fill">Coral</span></span></div><div class="chip"><i style="background:#f5b23f"></i><span><span class="fill">Saffron</span></span></div><div class="chip"><i style="background:#685cb6"></i><span><span class="fill">Violet</span></span></div><div class="chip"><i style="background:#6fb3dc"></i><span><span class="fill">Sky</span></span></div><div class="chip"><i style="background:#d3d3d6"></i><span><span class="fill">Plaster white</span></span></div>
+        </div>
+        <p style="color:var(--ink-soft);font-size:var(--t-small)">Colors sampled from the photographs of the paintings; names are suggestions. <span class="fill">Why these colors: the house's materials, its light, the family's story?</span></p>
+      </div>
+    </div>
+    <div class="wide" style="display:grid;gap:clamp(40px,6vw,80px)">
+      <div class="compares">
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-render-living-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Rendering of the living room with the white face relief on the wall beside the sofa"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Rendering</span><span>Living room, as proposed</span></figcaption></figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-living-room-wide-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="The finished living room with the white face relief installed on its column"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Living room, as delivered</span></figcaption></figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-render-hallway-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Rendering of the glass hallway with the bloom painting on the wall"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Rendering</span><span>Hallway, as proposed</span></figcaption></figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-hallway-bloom-2-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="The finished hallway with the bloom painting installed"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Hallway, as delivered</span></figcaption></figure>
+      </div>
+      <div class="twist grid">
+        <div class="q">
+          <span class="label" style="color:var(--accent)">The one that changed</span>
+          <blockquote>Except one, by design. The family asked for something more personal.</blockquote>
+          <details class="more"><summary><span class="o">Read the story</span><span class="c">Close</span></summary><div class="inner"><p>That piece became theirs in a way no rendering could show. <span class="fill">What did they ask for, and what did you change?</span></p></div></details>
+        </div>
+        <figure style="grid-column:auto">
+          <div class="compare"><span class="ph r-45" data-kind="room" data-seed="130"></span><span class="ph top" data-kind="room-warm" data-seed="131"></span><span class="handle"></span><span class="ctag l">Proposal</span><span class="ctag r">With the twist</span><input type="range" min="0" max="100" value="50" aria-label="Slide to compare the original proposal with the final, personalized painting"></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- VI. Outcome -->
+  <section class="chapter grid pad" aria-labelledby="c6">
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes / evaluation</span><h2 id="c6">Living with the work</h2></div>
+    <div class="body">
+      <p>The family received paintings that matched what they approved, and one that went further, at their request.</p>
+      <p><span class="fill">A sentence from the family, in their words, if they're happy to share it.</span></p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p><span class="fill">Anything after: referrals, new commissions, the designer's reaction?</span></p></div></details>
+    </div>
+      <div class="wide essay">
+      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-geometric-pair-angle-1400.webp" sizes="(min-width: 760px) 44vw, 100vw" alt="Two paintings of stacked geometric forms in blue, pink and orange on grey grounds, seen at an angle in the hallway"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Hallway</span></figcaption></figure>
+      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-bedroom-alt-1400.webp" sizes="(min-width: 760px) 44vw, 100vw" alt="Another view of the bedroom and the black relief panel"  decoding="async" style="object-position:50% 45%"></div><figcaption><span class="label">Final</span><span>Bedroom</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- VII. Reflection -->
+  <section class="chapter grid pad" aria-labelledby="c7">
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="c7">Looking back</h2></div>
+    <div class="body">
+      <p><span class="fill">What you're proudest of, and what was hardest.</span></p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p>What I'd add now, with user-centered design methods:</p>
+      <ul>
+        <li>A follow-up conversation with the family months later, to learn how they live with the work</li>
+        <li>Observing how each room is actually used before choosing sizes and placement</li>
+        <li>Testing two or three rendering options earlier, to see which reactions predict the final choice</li>
+      </ul></div></details>
+    </div>
+  </section>
+
+  <div class="pad">
+    <a class="next" href="#commission">
+      <span class="label">Your walls have a story too</span>
+      <h2>Begin a commission →</h2>
+    </a>
+  </div>
+</div>
+
+<!-- ================= GALLERY ================= -->
+<div class="view" data-view="gallery" hidden>
+  <div class="page-top pad">
+    <span class="label">Individual works</span>
+    <h1 class="rise">Gallery</h1>
+    <div class="filters" role="group" aria-label="Filter gallery" data-filter-group="gallery">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="painting" aria-pressed="false">Painting</button>
+      <button type="button" data-filter="sculpture" aria-pressed="false">Sculpture</button>
+      <button type="button" data-filter="scenic" aria-pressed="false">Scenic</button>
+      <button type="button" data-filter="motion" aria-pressed="false">Motion</button>
+    </div>
+  </div>
+  <div class="masonry pad" data-filter-items="gallery">
+    <figure class="zoom" data-tags="painting"><div class="ph r-45" data-kind="field" data-seed="201"></div><figcaption><span class="t">Pray</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-23" data-kind="field" data-seed="202"></div><figcaption><span class="t">Longing</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-11" data-kind="field" data-seed="203"></div><figcaption><span class="t">Forgiving</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-45" data-kind="field" data-seed="204"></div><figcaption><span class="t">Morning</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-32" data-kind="field" data-seed="205"></div><figcaption><span class="t">Bogotá in the Distance</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-23" data-kind="field" data-seed="206"></div><figcaption><span class="t">Wondering</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-11" data-kind="field" data-seed="207"></div><figcaption><span class="t">100 Calorie Bag I</span><span>16 × 16 in</span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-11" data-kind="field" data-seed="208"></div><figcaption><span class="t">100 Calorie Bag II</span><span>16 × 16 in</span></figcaption></figure>
+    <figure class="zoom" data-tags="painting"><div class="ph r-45" data-kind="field" data-seed="209"></div><figcaption><span class="t">Homage to the 28th I</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="sculpture"><div class="ph r-23" data-kind="portrait" data-seed="210"></div><figcaption><span class="t">Walking Man</span><span><span class="fill">Material · size</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="scenic"><div class="ph r-43" data-kind="wip" data-seed="211"></div><figcaption><span class="t">King Kong</span><span><span class="fill">Where · year</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="scenic"><div class="ph r-32" data-kind="architecture" data-seed="212"></div><figcaption><span class="t">Jurassic World</span><span><span class="fill">Where · year</span></span></figcaption></figure>
+    <figure class="zoom" data-tags="motion"><div class="ph r-169" data-kind="field" data-seed="213"></div><figcaption><span class="t"><span class="fill">Motion piece</span></span><span>Loop</span></figcaption></figure>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<div class="view" data-view="about" hidden>
+  <div class="page-top pad"><span class="label">Painter · Scenic artist · Designer</span><h1 class="rise">About</h1></div>
+  <section class="about grid pad">
+    <div class="ph-wrap"><div class="ph r-45"><img src="img/ccb-portrait-1400.webp" sizes="(min-width: 900px) 40vw, 100vw" alt="Portrait of Daniela Marin, arms crossed, in front of the ribbon painting"  decoding="async" style="object-position:50% 30%"></div></div>
+    <div class="text">
+      <p class="lead">I design how people experience space: on walls, on stages and on screens.</p>
+      <p>Born in Bogotá. BFA in painting from SCAD. Since 2015 I've painted scenery for Disney, Universal and National Geographic, including leading a scenic paint team in Tokyo. My public art is in Englewood, Colorado. Today I'm a graphic designer and an MA student in human-computer interaction at DePaul.</p>
+      <p><span class="fill">Rewrite in your own voice.</span></p>
+    </div>
+  </section>
+</div>
+
+<!-- ================= COMMISSION ================= -->
+<div class="view" data-view="commission" hidden>
+  <div class="page-top pad"><span class="label">Art made for your walls, your light and your story</span><h1 class="rise">Commission</h1></div>
+  <div class="pad">
+    <ol class="how">
+      <li><span class="no">01</span><h3>We talk</h3><p>You tell me about the space and the people who live in it.</p></li>
+      <li><span class="no">02</span><h3>I propose</h3><p>You see several options and choose a direction.</p></li>
+      <li><span class="no">03</span><h3>You see it in your room</h3><p>I stage the chosen pieces in a rendering of your space.</p></li>
+      <li><span class="no">04</span><h3>I paint</h3><p>With progress updates along the way.</p></li>
+      <li><span class="no">05</span><h3>Delivery</h3><p>The finished work matches what you approved.</p></li>
+    </ol>
+    <p class="label" style="margin-bottom:12px">Get in touch</p>
+    <p class="contact-line"><span class="fill">your email</span></p>
+  </div>
+</div>
+
+</main>
+
+<footer class="site"><div class="bar pad"><span>Daniela Marin</span><span>danielamarinart.com</span></div></footer>
+
+<script>
+(function () {
+  /* ---------- views ---------- */
+  var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav.main a'));
+  var header = document.querySelector('header.site'), menuBtn = document.getElementById('menu-btn');
+  function closeMenu() { header.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = 'Menu'; }
+  menuBtn.addEventListener('click', function () { var o = !header.classList.contains('open'); header.classList.toggle('open', o); menuBtn.setAttribute('aria-expanded', o ? 'true' : 'false'); menuBtn.textContent = o ? 'Close' : 'Menu'; });
+  function show() {
+    closeMenu();
+    var h = (location.hash || '').slice(1) || 'projects';
+    var v = views.filter(function (x) { return x.dataset.view === h; })[0] || views[0];
+    views.forEach(function (x) { x.hidden = x !== v; });
+    var section = v.dataset.view === 'casa-cara-blanca' ? 'projects' : v.dataset.view;
+    navLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + section) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    window.scrollTo(0, 0);
+    requestAnimationFrame(drawAll);
+  }
+
+  /* ---------- filters ---------- */
+  document.querySelectorAll('[data-filter-group]').forEach(function (group) {
+    var btns = group.querySelectorAll('button');
+    var items = document.querySelectorAll('[data-filter-items="' + group.dataset.filterGroup + '"] > [data-tags]');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.dataset.filter;
+        btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        items.forEach(function (el) { el.hidden = !(f === 'all' || el.dataset.tags.split(' ').indexOf(f) > -1); });
+        requestAnimationFrame(drawAll);
+      });
+    });
+  });
+
+  /* ---------- stand-in images (drawn; not real artwork) ---------- */
+  var PAL = [
+    ['#b8643e', '#d8b67a', '#4f6b5e', '#ece6da'],
+    ['#6f8796', '#2f3437', '#cdbfae', '#e8e3da'],
+    ['#56705f', '#b9c6b0', '#b98a55', '#efeae1'],
+    ['#9c4f36', '#e6d3b0', '#2f4558', '#ebe5da'],
+    ['#5f4b6b', '#d9b9a6', '#466b60', '#f0ece4'],
+    ['#2d4150', '#d5a85a', '#9a5a43', '#e9e7e1'],
+    ['#8a9ba3', '#c9b48f', '#3e4a45', '#eeebe4']
+  ];
+  function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function soft(c, x, y, w, h, col, a, f) { c.save(); c.fillStyle = col; for (var i = 0; i < 10; i++) { var k = f * (1 - i / 10); c.globalAlpha = a / 10 * 1.6; c.fillRect(x - k, y - k * .7, w + 2 * k, h + 1.4 * k); } c.restore(); }
+  function grain(c, amt) { var cv = c.canvas, im = c.getImageData(0, 0, cv.width, cv.height), d = im.data; for (var i = 0; i < d.length; i += 4) { var n = (Math.random() - .5) * amt; d[i] += n; d[i + 1] += n; d[i + 2] += n; } c.putImageData(im, 0, 0); }
+  function light(c, w, h, s) { var g = c.createRadialGradient(w * .22, h * .12, 0, w * .4, h * .4, Math.max(w, h)); g.addColorStop(0, 'rgba(255,249,238,' + .24 * s + ')'); g.addColorStop(.55, 'rgba(255,249,238,0)'); g.addColorStop(1, 'rgba(28,24,20,' + .24 * s + ')'); c.fillStyle = g; c.fillRect(0, 0, w, h); }
+  function field(c, x, y, w, h, r, p) {
+    c.fillStyle = p[3]; c.fillRect(x, y, w, h); c.save(); c.beginPath(); c.rect(x, y, w, h); c.clip();
+    var m = Math.min(w, h) * .08, f = Math.min(w, h) * .03, mode = Math.floor(r() * 4);
+    if (mode === 0) { var n = 2 + Math.floor(r() * 2), ah = h - m * 2; for (var i = 0; i < n; i++) soft(c, x + m, y + m + i * ah / n, w - m * 2, ah / n - m * .5, p[i % 3], .85, f); }
+    else if (mode === 1) { soft(c, x, y, w, h * (.5 + r() * .2), p[0], .9, f * 2); soft(c, x + m, y + h * .72, w - m * 2, h * .06, p[1], .7, f); }
+    else if (mode === 2) { soft(c, x + m, y + m, (w - m * 3) * .5, h - m * 2, p[0], .85, f); soft(c, x + m * 2 + (w - m * 3) * .5, y + m, (w - m * 3) * .5, h - m * 2, p[2], .85, f); }
+    else { soft(c, x, y, w, h, p[2], .5, 0); var rr = Math.min(w, h) * (.18 + r() * .12), cx = x + w * (.35 + r() * .3), cy = y + h * (.3 + r() * .3); for (var k = 10; k > 0; k--) { c.globalAlpha = .12; c.fillStyle = p[1]; c.beginPath(); c.arc(cx, cy, rr + k * f * .4, 0, 7); c.fill(); } c.globalAlpha = 1; }
+    c.restore();
+  }
+  function room(c, w, h, r, p, warm) {
+    var fy = h * .84; c.fillStyle = warm ? '#e7e2d8' : '#e8e7e2'; c.fillRect(0, 0, w, fy);
+    c.save(); c.globalAlpha = warm ? .34 : .2; c.fillStyle = '#fff5e4'; c.beginPath(); c.moveTo(w * .62, 0); c.lineTo(w * .86, 0); c.lineTo(w * .7, fy); c.lineTo(w * .44, fy); c.closePath(); c.fill(); c.restore();
+    var g = c.createLinearGradient(0, fy, 0, h); g.addColorStop(0, warm ? '#a8927a' : '#b4a796'); g.addColorStop(1, warm ? '#86715c' : '#998d7b'); c.fillStyle = g; c.fillRect(0, fy, w, h - fy);
+    c.fillStyle = 'rgba(0,0,0,.09)'; c.fillRect(0, fy - 2, w, 2);
+    var tall = h / w > 1, fw = tall ? w * .56 : Math.min(w * .3, h * .5), fh = fw * 1.25; if (fh > fy * .72) { fh = fy * .66; fw = fh / 1.25; }
+    var fx = w * (tall ? .5 : .42) - fw / 2, ffy = fy * .47 - fh / 2;
+    var sh = c.createLinearGradient(fx, ffy, fx + fw, ffy + fh); sh.addColorStop(0, 'rgba(0,0,0,.2)'); sh.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = sh; c.fillRect(fx + 7, ffy + 10, fw + 4, fh + 4);
+    field(c, fx, ffy, fw, fh, r, p);
+    if (!tall) { var w2 = fw * .5, h2 = fh * .5, x2 = fx + fw + w * .05, y2 = ffy + fh - h2; if (x2 + w2 < w * .94) { c.fillStyle = 'rgba(0,0,0,.13)'; c.fillRect(x2 + 5, y2 + 8, w2, h2); field(c, x2, y2, w2, h2, r, [p[1], p[2], p[0], p[3]]); } c.fillStyle = warm ? '#d9d2c6' : '#dcdad4'; c.fillRect(w * .1, fy - h * .055, w * .3, h * .055); }
+    light(c, w, h, warm ? 1 : .6);
+  }
+  function arch(c, w, h, r) {
+    var g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#cbd5d9'); g.addColorStop(1, '#e8eae7'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+    var hx = w * (.3 + r() * .25);
+    c.fillStyle = '#f3f1ec'; c.beginPath(); c.moveTo(0, h * .3); c.lineTo(hx, h * .2); c.lineTo(hx, h); c.lineTo(0, h); c.fill();
+    c.fillStyle = '#d5d1c9'; c.beginPath(); c.moveTo(hx, h * .2); c.lineTo(w, h * .34); c.lineTo(w, h); c.lineTo(hx, h); c.fill();
+    c.fillStyle = 'rgba(58,53,46,.24)'; c.beginPath(); c.moveTo(hx, h * .46); c.lineTo(w, h * .64); c.lineTo(w, h); c.lineTo(hx, h); c.fill();
+    c.fillStyle = '#3b3d3a'; c.fillRect(hx + (w - hx) * .3, h * .52, (w - hx) * .2, h * .48);
+    c.fillStyle = 'rgba(78,94,80,.55)'; c.beginPath(); c.ellipse(w * .1, h, w * .16, h * .14, 0, Math.PI, 0); c.fill();
+    light(c, w, h, .8);
+  }
+  function sketch(c, w, h, r) {
+    c.fillStyle = '#f2efe8'; c.fillRect(0, 0, w, h); c.strokeStyle = '#3a3936'; c.lineCap = 'round';
+    for (var i = 0; i < 28; i++) { c.globalAlpha = .1 + r() * .25; c.lineWidth = .6 + r() * 1.1; c.beginPath(); var sx = w * (.15 + r() * .7), sy = h * (.2 + r() * .6); c.moveTo(sx, sy); c.bezierCurveTo(sx + (r() - .5) * w * .4, sy + (r() - .5) * h * .4, sx + (r() - .5) * w * .4, sy + (r() - .5) * h * .4, sx + (r() - .5) * w * .5, sy + (r() - .5) * h * .3); c.stroke(); }
+    c.globalAlpha = .3; c.lineWidth = .8; c.strokeRect(w * .12, h * .14, w * .76, h * .72); c.globalAlpha = 1;
+  }
+  function wip(c, w, h, r, p) {
+    c.fillStyle = '#e3dfd7'; c.fillRect(0, 0, w, h);
+    var m = Math.min(w, h) * .08, cx = m, cy = m, cw = w - m * 2, ch = h - m * 2;
+    c.fillStyle = 'rgba(0,0,0,.15)'; c.fillRect(cx + 6, cy + 8, cw, ch); c.fillStyle = '#f7f5f0'; c.fillRect(cx, cy, cw, ch);
+    c.strokeStyle = 'rgba(60,60,60,.16)'; c.lineWidth = .7;
+    for (var a = 1; a < 6; a++) { c.beginPath(); c.moveTo(cx + cw * a / 6, cy); c.lineTo(cx + cw * a / 6, cy + ch); c.stroke(); }
+    for (var b = 1; b < 5; b++) { c.beginPath(); c.moveTo(cx, cy + ch * b / 5); c.lineTo(cx + cw, cy + ch * b / 5); c.stroke(); }
+    c.save(); c.beginPath(); c.moveTo(cx, cy); var e = cx + cw * (.45 + r() * .2); c.lineTo(e, cy); for (var k = 1; k <= 8; k++) c.lineTo(e + (r() - .5) * cw * .08, cy + ch * k / 8); c.lineTo(cx, cy + ch); c.closePath(); c.clip(); field(c, cx, cy, cw, ch, r, p); c.restore();
+    light(c, w, h, .9);
+  }
+  function wire(c, w, h) {
+    c.fillStyle = '#e7e9e6'; c.fillRect(0, 0, w, h);
+    var pw = Math.min(w * .24, h * .4), ph = pw * 2.05, gap = pw * .3, x0 = (w - pw * 2 - gap) / 2, y0 = (h - ph) / 2;
+    for (var q = 0; q < 2; q++) { var x = x0 + q * (pw + gap); c.fillStyle = 'rgba(0,0,0,.07)'; c.fillRect(x + 5, y0 + 7, pw, ph); c.fillStyle = '#fbfbfa'; c.fillRect(x, y0, pw, ph); c.fillStyle = '#c9cec9'; c.fillRect(x + pw * .1, y0 + ph * .06, pw * .4, ph * .02); c.fillStyle = '#e2e5e1'; c.fillRect(x + pw * .1, y0 + ph * .13, pw * .8, ph * .24); for (var i = 0; i < 4; i++) { c.fillStyle = '#d3d7d2'; c.fillRect(x + pw * .1, y0 + ph * (.44 + i * .07), pw * (.8 - (i % 2) * .3), ph * .018); } c.fillStyle = '#2f5d50'; c.fillRect(x + pw * .1, y0 + ph * .85, pw * .8, ph * .06); }
+  }
+  function portrait(c, w, h) {
+    var g = c.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#dad5cc'); g.addColorStop(1, '#a7a095'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+    var a = c.createRadialGradient(w * .5, h * .36, 0, w * .5, h * .36, Math.min(w, h) * .2); a.addColorStop(0, 'rgba(68,62,56,.75)'); a.addColorStop(1, 'rgba(68,62,56,0)'); c.fillStyle = a; c.fillRect(0, 0, w, h);
+    var b = c.createRadialGradient(w * .5, h * 1.05, 0, w * .5, h * 1.05, w * .5); b.addColorStop(0, 'rgba(58,53,48,.8)'); b.addColorStop(1, 'rgba(58,53,48,0)'); c.fillStyle = b; c.fillRect(0, 0, w, h);
+    light(c, w, h, 1);
+  }
+  function play(c, w, h) { var s = Math.min(w, h) * .06; c.strokeStyle = 'rgba(255,255,255,.9)'; c.lineWidth = 1.2; c.beginPath(); c.arc(w / 2, h / 2, s * 1.5, 0, 7); c.stroke(); c.fillStyle = 'rgba(255,255,255,.92)'; c.beginPath(); c.moveTo(w / 2 - s * .4, h / 2 - s * .6); c.lineTo(w / 2 + s * .7, h / 2); c.lineTo(w / 2 - s * .4, h / 2 + s * .6); c.closePath(); c.fill(); }
+
+  var phs = Array.prototype.slice.call(document.querySelectorAll('.ph[data-kind]'));
+  function drawAll() {
+    phs.forEach(function (ph) {
+      var w = ph.clientWidth, h = ph.clientHeight; if (!w || !h) return;
+      var cv = ph.querySelector('canvas'); if (!cv) { cv = document.createElement('canvas'); cv.setAttribute('aria-hidden', 'true'); ph.appendChild(cv); }
+      if (cv._w === w && cv._h === h) return;
+      var d = Math.min(window.devicePixelRatio || 1, 2); cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv._w = w; cv._h = h;
+      var c = cv.getContext('2d'); c.setTransform(d, 0, 0, d, 0, 0);
+      var seed = +(ph.dataset.seed || 1), r = rng(seed * 7919), p = PAL[seed % PAL.length], k = ph.dataset.kind, noisy = true;
+      if (k === 'room') { room(c, w, h, r, p, false); noisy = false; }
+      else if (k === 'room-warm') room(c, w, h, r, p, true);
+      else if (k === 'video') { room(c, w, h, r, p, true); c.fillStyle = 'rgba(20,18,16,.3)'; c.fillRect(0, 0, w, h); }
+      else if (k === 'architecture') arch(c, w, h, r);
+      else if (k === 'sketch') sketch(c, w, h, r);
+      else if (k === 'wip') wip(c, w, h, r, p);
+      else if (k === 'wire') { wire(c, w, h); noisy = false; }
+      else if (k === 'portrait') portrait(c, w, h);
+      else { field(c, 0, 0, w, h, r, p); light(c, w, h, .5); }
+      if (noisy) grain(c, 13);
+      if (k === 'video') play(c, w, h);
+    });
+  }
+  document.querySelectorAll('.reveal').forEach(function (b) {
+    b.addEventListener('click', function () { b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); });
+  });
+  document.querySelectorAll('.compare').forEach(function (cmp) {
+    var input = cmp.querySelector('input');
+    input.addEventListener('input', function () { cmp.style.setProperty('--pos', input.value + '%'); });
+  });
+  var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(drawAll, 150); });
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+
+</body></html>
