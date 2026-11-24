@@ -41,6 +41,10 @@ body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall
 .screens img { display: block; width: 100%; max-width: 300px; height: auto; margin-inline: auto; }
 .screens figcaption { display: grid; gap: 2px; justify-items: center; text-align: center; font-size: .78rem; }
 @media (max-width: 520px) { .screens figcaption span:not(.label) { display: none; } }
+.pages { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 3vw, 40px); }
+@media (min-width: 760px) { .pages { grid-template-columns: 1fr 1fr; } }
+.pages img { display: block; width: 100%; max-width: 612px; height: auto; margin-inline: auto; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.08); }
+.pages figcaption { display: grid; gap: 2px; justify-items: center; text-align: center; }
 
 * { box-sizing: border-box; }
 body { background: var(--wall); color: var(--ink); font-family: var(--font); font-size: var(--t-body); line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased; }
@@ -852,6 +856,10 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
         <li>No account and nothing stored per household, so residents never fear penalties for asking.</li>
         <li>English and Spanish versions.</li>
       </ul></div></details>
+    </div>
+    <div class="wide pages">
+      <figure><a href="img/sio-wf-flow.webp" target="_blank" rel="noopener"><img src="img/sio-wf-flow.webp" width="612" height="792" alt="Daniela's wireframe flow for a greasy pizza box: home, typing pizza, the answer card, using the camera, did you mean, and no match" loading="lazy" decoding="async"></a><figcaption><span class="label">My wireframes</span><span>The item is found, or the site never guesses</span></figcaption></figure>
+      <figure><a href="img/sio-wf-decisions.webp" target="_blank" rel="noopener"><img src="img/sio-wf-decisions.webp" width="612" height="792" alt="Daniela's design decisions page: each choice tied to a Nielsen heuristic and a survey number, plus a cart lid sticker and a printed picture guide for people without a phone" loading="lazy" decoding="async"></a><figcaption><span class="label">My decisions</span><span>Each choice tied to a heuristic and a survey number</span></figcaption></figure>
     </div>
     <div class="wide screens">
       <figure><img src="img/sio-home.webp" alt="Home screen: a large search bar with camera and microphone, above common Blue Cart items" loading="lazy" decoding="async"><figcaption><span class="label">Home</span><span>Search first, largest</span></figcaption></figure>
