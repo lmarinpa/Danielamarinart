@@ -45,6 +45,14 @@ body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall
 @media (min-width: 760px) { .pages { grid-template-columns: 1fr 1fr; } }
 .pages img { display: block; width: 100%; max-width: 612px; height: auto; margin-inline: auto; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.08); }
 .pages figcaption { display: grid; gap: 2px; justify-items: center; text-align: center; }
+.evidence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 2vw, 28px); }
+@media (min-width: 900px) { .evidence { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.evidence figcaption { display: grid; gap: 2px; }
+.ba { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--ink); }
+.ba li { display: grid; grid-template-columns: 1fr; gap: 6px 24px; padding-block: 16px; border-bottom: 1px solid var(--line); font-size: var(--t-small); }
+.ba b { font-weight: 400; }
+@media (min-width: 760px) { .ba li { grid-template-columns: 1fr 1fr; } }
+.ba .k { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
 
 * { box-sizing: border-box; }
 body { background: var(--wall); color: var(--ink); font-family: var(--font); font-size: var(--t-body); line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased; }
@@ -795,18 +803,18 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s1">
-    <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="s1">The trash wins by default</h2></div>
+    <div class="side"><span class="no">I</span><span class="label">Problem &amp; Context</span><h2 id="s1">The trash wins by default</h2></div>
     <div class="body">
       <p>Chicago's residential recycling rate is low compared to other large US cities. Tools already exist and googling is easy, yet people still choose the trash when they're unsure.</p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p>That told me the problem is not only a lack of knowledge but a lack of interest in finding out. We focused on homes and buildings with up to 4 units, the buildings the City's Blue Cart service collects from.</p></div></details>
+      <details class="more" open><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p>That told me the problem is not only a lack of knowledge but a lack of interest in finding out. We focused on homes and buildings with up to 4 units, the buildings the City's Blue Cart service collects from.</p></div></details>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s2">
-    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="s2">From personas to the merged design</h2></div>
+    <div class="side"><span class="no">II</span><span class="label">Your Role (Individual Contribution)</span><h2 id="s2">From personas to the merged design</h2></div>
     <div class="body">
       <p>I co-led the personas, drew the wireframes, and merged all five teammates' wireframes into one annotated team design.</p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+      <details class="more" open><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
         <li>Co-led the personas with one teammate and designed the persona pages</li>
         <li>Drafted our main requirement: find the right bin fast</li>
         <li>Drew the mobile and desktop wireframes for our concept report</li>
@@ -818,21 +826,21 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s3">
-    <div class="side"><span class="no">III</span><span class="label">Research methods used</span><h2 id="s3">Listening at every step</h2></div>
+    <div class="side"><span class="no">III</span><span class="label">Research Methods Used</span><h2 id="s3">Listening at every step</h2></div>
     <div class="body">
       <ol class="insights">
-        <li><span class="n">12</span><p><strong>Semi-structured interviews:</strong> 11 residents plus 1 waste management expert. I interviewed 2 participants.</p></li>
-        <li><span class="n">105</span><p><strong>Survey:</strong> eligible responses, then a second round with 72 Chicago respondents to test early design ideas.</p></li>
-        <li><span class="n">2</span><p><strong>Observations:</strong> watching people sort waste at a public coffee shop.</p></li>
-        <li><span class="n">4</span><p><strong>Personas</strong> from affinity mapping: Practical Sorter, Unbothered Disposer, Discouraged Neighbor, Confident Recycler.</p></li>
-        <li><span class="n">10</span><p><strong>Heuristic evaluation:</strong> wireframes reviewed against Nielsen's 10 usability heuristics, with severity ratings.</p></li>
-        <li><span class="n">5</span><p><strong>Moderated usability tests:</strong> at least one participant per teammate, matched to a persona, with think-aloud tasks.</p></li>
+        <li><span class="n">12</span><p><strong>Semi-structured interviews</strong> (conversations guided by a few set questions): 11 residents plus 1 waste management expert. I interviewed 2 participants. <em>Why:</em> to hear in people's own words where sorting breaks down.</p></li>
+        <li><span class="n">105</span><p><strong>Survey:</strong> eligible responses, then a second round with 72 Chicago respondents to test early design ideas. <em>Why:</em> to check whether the interview patterns held across many more people.</p></li>
+        <li><span class="n">2</span><p><strong>Observations:</strong> watching people sort waste at a public coffee shop. <em>Why:</em> what people do at the bin can differ from what they say.</p></li>
+        <li><span class="n">4</span><p><strong>Personas</strong> (realistic profiles that stand for groups of users), built from affinity mapping (grouping research notes by theme): Practical Sorter, Unbothered Disposer, Discouraged Neighbor, Confident Recycler. <em>Why:</em> to keep real people in mind at every design decision.</p></li>
+        <li><span class="n">10</span><p><strong>Heuristic evaluation:</strong> checking the wireframes (simple layouts without color or images) against Nielsen's 10 usability heuristics, well-known rules of thumb for easy-to-use design, and rating each problem from 0 (none) to 4 (severe). <em>Why:</em> to catch problems before testing with people.</p></li>
+        <li><span class="n">5</span><p><strong>Moderated usability tests:</strong> watching people try real tasks on the prototype while thinking aloud, at least one participant per teammate, matched to a persona. <em>Why:</em> to see whether the design works for real users, and whether they learn from it.</p></li>
       </ol>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s4">
-    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="s4">What the research said</h2></div>
+    <div class="side"><span class="no">IV</span><span class="label">Key Insights</span><h2 id="s4">What the research said</h2></div>
     <div class="body">
       <ol class="insights">
         <li><span class="n">39%</span><p>put an item they're unsure about in the regular trash first.</p></li>
@@ -845,10 +853,10 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s5">
-    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="s5">One question, one clear answer</h2></div>
+    <div class="side"><span class="no">V</span><span class="label">Design Decisions (and Why)</span><h2 id="s5">One question, one clear answer</h2></div>
     <div class="body">
       <p>In the survey, typing the item's name was the most popular way to search, and most people wanted one clear answer. So the typing search bar came first and largest, with camera and barcode as two tabs below it, each half its width.</p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+      <details class="more" open><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
         <li>The answer shows right in the search suggestions, with no extra screens: every extra step is a chance to give up and use the trash.</li>
         <li>Each answer shows its Chicago source and a "last reviewed" date, because trust is low.</li>
         <li>QR codes on the bins, a teammate's idea I kept, so people reach the tool from where they throw things away.</li>
@@ -856,6 +864,14 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
         <li>No account and nothing stored per household, so residents never fear penalties for asking.</li>
         <li>English and Spanish versions.</li>
       </ul></div></details>
+    </div>
+    <div class="body">
+      <span class="label">Iteration · before → after</span>
+      <ul class="ba">
+        <li><span><span class="k">Before</span><br>My first "no match" screen ended with "most items go in the trash."</span><span><span class="k">After</span><br>The team agreed the site never tells people to trash an unknown item. It shows similar items, the camera, or City guidance / 311.</span></li>
+        <li><span><span class="k">Before</span><br>Some home-screen text was smaller than readable on a phone. My heuristic review rated it severity 3 (major).</span><span><span class="k">After</span><br>Nothing below 11 px, and darker gray text, because 74% of survey respondents were 45 or older.</span></li>
+        <li><span><span class="k">Considered</span><br>Separate pages for "recyclable" and "not recyclable."</span><span><span class="k">Chose</span><br>One answer card for every item, in the same order: bin, steps, why. It works even when an item splits between bins, like a greasy pizza box.</span></li>
+      </ul>
     </div>
     <div class="wide pages">
       <figure><a href="img/sio-wf-flow.webp" target="_blank" rel="noopener"><img src="img/sio-wf-flow.webp" width="612" height="792" alt="Daniela's wireframe flow for a greasy pizza box: home, typing pizza, the answer card, using the camera, did you mean, and no match" loading="lazy" decoding="async"></a><figcaption><span class="label">My wireframes</span><span>The item is found, or the site never guesses</span></figcaption></figure>
@@ -869,14 +885,15 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s6">
-    <div class="side"><span class="no">VI</span><span class="label">Outcomes / evaluation</span><h2 id="s6">What testing showed</h2></div>
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes / Evaluation</span><h2 id="s6">What testing showed</h2></div>
     <div class="body">
       <p>I observed two moderated sessions. The search worked, and it taught: after one search, a participant applied the rule on her own in the final check.</p>
       <div class="twist" style="padding:0">
         <blockquote>"It has one of the numbers 5, it's not black, and it has the triangle it said on the website."</blockquote>
         <span class="label">Participant U1, final knowledge check</span>
       </div>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+      <p class="quiet">U1 and U3 are anonymous test participants. Before the test, U1 sorted plastic by habit: "It's plastic." After one search, she sorted a takeout container by the exact rule, from memory.</p>
+      <details class="more" open><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
         <li><strong>Predictive search was the favorite.</strong> U3: "You could just see the answer without even selecting it." She called it "a very effective website."</li>
         <li><strong>"No exact match" recovered well.</strong> Both participants found Milk and Juice Cartons on their own.</li>
         <li><strong>Photo search gets one chance.</strong> When the photo returned the wrong item, U3 said she'd type instead and be "a lot less likely to ever use that function again." She preferred barcode.</li>
@@ -893,10 +910,10 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <section class="chapter grid pad" aria-labelledby="s7">
-    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="s7">Underpainting first</h2></div>
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; Next Steps</span><h2 id="s7">Underpainting first</h2></div>
     <div class="body">
       <p>Wireframing taught me to take a step back before deciding on the pretty factors. It's like the underpainting in a classical painting, where the structure is set in light and dark before the color goes on top.</p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner">
+      <details class="more" open><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner">
         <p>Because of my art background, I saw two problems: users needed more information, and the tool needed to add value so people would want to use it. I designed a neighborhood competition, a game with friendly characters and a point system, but the survey had no room to test them, and we delivered a tool that only searches. Next time I would spend more time learning whether users want more creative solutions, and finding the real problem to solve.</p>
         <p>I also learned to get off the computer and look at my screens on a phone: on a zoomed-in monitor it's easy to miss text that people in their 40s and older can't read.</p>
         <p>Next I would test preparation steps that are impossible to miss, a photo search that offers typing the moment it fails, and signs about hard items instead of easy ones like cans.</p>
@@ -921,8 +938,11 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </div>
   <div class="pad">
     <figure class="bleed hero-in">
-      <div class="ph r-219" data-kind="wip" data-seed="141"></div>
-      <figcaption><span class="label">Observation study · HCI 440</span><span>Harold Washington Library Center, Chicago</span></figcaption>
+      <div class="hero-pair">
+        <div class="ph r-45"><img src="img/ml-openshop.webp" alt="The Maker Lab during open shop: a screen reading Open Shop 2 to 5 PM above worktables and storage carts" fetchpriority="high" decoding="async" style="object-position:50% 50%"></div>
+        <div class="ph r-45"><img src="img/ml-queue.webp" alt="Handwritten queue board for the 3D printers, laser cutter and Cricut, with time limits and rules" fetchpriority="high" decoding="async" style="object-position:50% 50%"></div>
+      </div>
+      <figcaption><span class="label">Observation study · HCI 440</span><span>Harold Washington Library Center, Chicago. My photos show the space, never visitors.</span></figcaption>
     </figure>
   </div>
 
@@ -938,66 +958,72 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m1">
-    <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="m1">Free tools, hard steps</h2></div>
+    <div class="side"><span class="no">I</span><span class="label">Problem &amp; Context</span><h2 id="m1">Free tools, hard steps</h2></div>
     <div class="body">
       <p>Anyone can walk into the Maker Lab and use 3D printers, a Cricut, laser cutters and sewing machines for free, with no sign-up. I chose it because people who can't afford machines or classes should still be able to explore their hobbies and creative needs.</p>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m2">
-    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="m2">Solo researcher</h2></div>
+    <div class="side"><span class="no">II</span><span class="label">Your Role (Individual Contribution)</span><h2 id="m2">Solo researcher</h2></div>
     <div class="body">
       <p>I planned the observation, took field notes, reviewed related research, analyzed the domain and wrote the report.</p>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m3">
-    <div class="side"><span class="no">III</span><span class="label">Research methods used</span><h2 id="m3">Watching without helping</h2></div>
+    <div class="side"><span class="no">III</span><span class="label">Research Methods Used</span><h2 id="m3">Watching without helping</h2></div>
     <div class="body">
       <ul>
-        <li><strong>Structured observation:</strong> 3 visitors aged about 55 to 78 and the 2 staff members helping them. I watched without interacting and described people only by role and approximate age.</li>
-        <li><strong>Field notes:</strong> a template for setting, tools, routines and key moments, with full notes written right after.</li>
-        <li><strong>Self-test:</strong> I tried to follow the wall instructions and log in to a lab laptop myself.</li>
-        <li><strong>Secondary research:</strong> Hu, Pradhan, Bonsignore and Lazar (2024), a three-year study of a makerspace run by older adults.</li>
-        <li><strong>Analysis:</strong> Norman's design principles, Nielsen's heuristics and a 5-criteria domain score.</li>
+        <li><strong>Structured observation:</strong> 3 visitors aged about 55 to 78 and the 2 staff members helping them. I watched without interacting and described people only by role and approximate age. <em>Why:</em> watching shows what people actually do, not what they remember doing.</li>
+        <li><strong>Field notes:</strong> a template for setting, tools, routines and key moments, with full notes written right after. <em>Why:</em> a template kept me looking for the same things for every visitor.</li>
+        <li><strong>Self-test:</strong> I tried to follow the wall instructions and log in to a lab laptop myself. <em>Why:</em> to feel the first-time visitor's experience directly.</li>
+        <li><strong>Secondary research:</strong> Hu, Pradhan, Bonsignore and Lazar (2024), a three-year study of a makerspace run by older adults. <em>Why:</em> to check whether what I saw in one hour also shows up over years elsewhere.</li>
+        <li><strong>Analysis:</strong> Norman's design principles and Nielsen's heuristics (well-known rules of thumb for what makes something easy to use), plus a 5-criteria score of the problem space. <em>Why:</em> to name each problem with a shared vocabulary instead of my own opinion.</li>
       </ul>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m4">
-    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="m4">What I saw</h2></div>
+    <div class="side"><span class="no">IV</span><span class="label">Key Insights</span><h2 id="m4">What I saw</h2></div>
     <div class="body">
       <ol class="insights">
-        <li><span class="n">39 min</span><p>of staff time went to one Cricut sticker job, and at the end both staff members.</p></li>
+        <li><span class="n">39 min</span><p>of staff time went to one Cricut sticker job, and at one point both staff members were helping the same visitor while everyone else waited.</p></li>
         <li><span class="n">02</span><p>The information exists, but people can't find it: a posted sheet said files could be emailed to the printer, yet a visitor still had to ask.</p></li>
         <li><span class="n">03</span><p>Instructions read like staff reminders: handwritten charts, taped printouts and laminated sheets in many formats. I couldn't follow them myself.</p></li>
         <li><span class="n">04</span><p>Storage hides its contents: a visitor opened drawer after drawer to find scissors.</p></li>
         <li><span class="n">05</span><p>The human help is what works: visitors valued patient one-on-one attention, something a video at home can't give.</p></li>
       </ol>
     </div>
+    <div class="wide evidence">
+      <figure><div class="ph r-45"><img src="img/ml-printers.webp" alt="Two 3D printers with small status screens and a price written above them" loading="lazy" decoding="async"></div><figcaption><span class="label">Status</span><span>A tiny screen is the only way to know when a print is done</span></figcaption></figure>
+      <figure><div class="ph r-45"><img src="img/ml-knitting.webp" alt="A laminated page of small-text instructions lying on the knitting machine" loading="lazy" decoding="async"></div><figcaption><span class="label">Instructions</span><span>Small text, placed on the machine itself</span></figcaption></figure>
+      <figure><div class="ph r-45"><img src="img/ml-drawers.webp" alt="Rolling storage drawers, two labeled bins on top and most drawers unlabeled" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Storage</span><span>Most drawers don't say what's inside</span></figcaption></figure>
+      <figure><div class="ph r-45"><img src="img/ml-login.webp" alt="Lab laptop login screen showing only one account name and a password box" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Login</span><span>I couldn't tell how to sign in</span></figcaption></figure>
+    </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m5">
-    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="m5">Support the staff, don't replace them</h2></div>
+    <div class="side"><span class="no">V</span><span class="label">Design Decisions (and Why)</span><h2 id="m5">Support the staff, don't replace them</h2></div>
     <div class="body">
       <p>This was a research study, so the output was a design opportunity: help visitors find materials and understand the steps to their own goal, while keeping the personal help they value.</p>
       <ul>
         <li>Labels on storage that match the labels in the instructions</li>
         <li>Step-by-step guides for one task at a time on complex machines like the Cricut</li>
-        <li>A way to check print status, like order tracking in online shopping (visibility of system status)</li>
+        <li>A way to check print status, like order tracking in online shopping. Nielsen calls this "visibility of system status": people should always know what's going on.</li>
       </ul>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m6">
-    <div class="side"><span class="no">VI</span><span class="label">Outcomes / evaluation</span><h2 id="m6">11 out of 15</h2></div>
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes / Evaluation</span><h2 id="m6">11 out of 15</h2></div>
     <div class="body">
       <p>I scored the domain 11/15: easy access to users, but too broad, since every visitor brought a different tool and problem. In one hour I collected individual stories more than patterns.</p>
     </div>
   </section>
 
   <section class="chapter grid pad" aria-labelledby="m7">
-    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="m7">Not designing for myself</h2></div>
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; Next Steps</span><h2 id="m7">Not designing for myself</h2></div>
     <div class="body">
       <p>I've used makerspaces before and my art background makes me comfortable with craft materials, so I had to be careful not to design for myself. That's why I focused on older walk-in visitors instead of students like me.</p>
       <p>Next: more visits to see which problems keep happening, and narrowing the scope to one machine, the Cricut.</p>
