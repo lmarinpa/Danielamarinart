@@ -34,6 +34,13 @@ body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall
 /* The works: a white gallery wall */
 [data-view="casa-cara-blanca"] .works { background: #fff; padding-top: clamp(48px, 7vw, 104px); }
 [data-view="casa-cara-blanca"] .works .ph { background: #f1f1ef; }
+/* Sort It Out Chicago: real prototype screens */
+.sio-hero { background: #e8ece4; }
+.screens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 3vw, 48px); background: #e8ece4; padding: clamp(20px, 4vw, 56px); }
+.screens figure { gap: 14px; }
+.screens img { display: block; width: 100%; max-width: 300px; height: auto; margin-inline: auto; }
+.screens figcaption { display: grid; gap: 2px; justify-items: center; text-align: center; font-size: .78rem; }
+@media (max-width: 520px) { .screens figcaption span:not(.label) { display: none; } }
 
 * { box-sizing: border-box; }
 body { background: var(--wall); color: var(--ink); font-family: var(--font); font-size: var(--t-body); line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased; }
@@ -246,6 +253,26 @@ details.more .inner { display: grid; gap: 18px; padding-top: 22px; }
 @media (min-width: 760px) { .compares { grid-template-columns: 1fr 1fr; } }
 .compares figcaption { display: grid; gap: 2px; }
 
+/* Material panel: type instead of photos for shop work without our own images */
+.matpanel { aspect-ratio: 21 / 9; background: var(--accent); color: var(--wall); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; gap: 4px 0; padding: clamp(20px, 4vw, 56px) var(--gutter-r) clamp(20px, 4vw, 56px) var(--gutter-l); }
+.matpanel span { font-size: clamp(1.8rem, 1rem + 4vw, 5rem); font-weight: 100; font-stretch: 72%; text-transform: uppercase; line-height: 1; }
+@media (max-width: 700px) { .matpanel { aspect-ratio: 4 / 5; grid-template-columns: 1fr; } }
+.work .matpanel { aspect-ratio: 4 / 5; grid-template-columns: 1fr; padding: clamp(20px, 3vw, 40px); }
+.work .matpanel span { font-size: clamp(1.6rem, 1rem + 2.4vw, 3.4rem); }
+
+/* Video card: a clear "watch" poster that opens the attraction video on YouTube */
+.videocard { position: relative; display: grid; place-items: center; aspect-ratio: 21 / 9; background: var(--ink); color: var(--wall); text-decoration: none; overflow: hidden; }
+.videocard::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%); }
+.videocard .vc { position: relative; display: grid; justify-items: center; gap: 18px; text-align: center; padding: 24px; }
+.videocard .play { width: clamp(64px, 9vw, 104px); aspect-ratio: 1; border-radius: 50%; border: 1px solid currentColor; display: grid; place-items: center; transition: transform .5s var(--ease), background .5s; }
+.videocard .play::after { content: ""; margin-left: 12%; border-style: solid; border-width: 14px 0 14px 24px; border-color: transparent transparent transparent currentColor; }
+.videocard:hover .play { transform: scale(1.06); background: color-mix(in srgb, var(--wall) 12%, transparent); }
+.videocard .vt { font-size: clamp(1.8rem, 1rem + 3.4vw, 4.2rem); font-weight: 100; font-stretch: 72%; text-transform: uppercase; line-height: .95; }
+.videocard .vs { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; opacity: .8; }
+@media (max-width: 700px) { .videocard { aspect-ratio: 4 / 5; } }
+.work .videocard { aspect-ratio: 4 / 5; }
+.work .videocard .vt { font-size: clamp(1.6rem, 1rem + 2.4vw, 3rem); }
+
 /* ---------- Gallery ---------- */
 .page-top { padding-block: 8px clamp(40px, 6vw, 80px); display: grid; gap: 24px; }
 .page-top h1 { font-size: var(--t-h1); }
@@ -272,7 +299,6 @@ footer.site { border-top: 1px solid var(--line); }
 footer.site .bar { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 28px 64px; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
 </style>
 
-<div class="draft">Draft · <span class="fill">gold</span> = to fill in</div>
 
 <header class="site" id="top">
   <div class="bar pad">
@@ -280,9 +306,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="main-nav">Menu</button>
     <nav class="main" id="main-nav" aria-label="Main">
       <a href="#projects">Projects</a>
-      <a href="#gallery">Gallery</a>
       <a href="#about">About</a>
-      <a href="#commission">Commission</a>
     </nav>
   </div>
 </header>
@@ -307,7 +331,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 
   <section class="selected pad" aria-label="Selected work">
     <a class="work w1 grid" href="#casa-cara-blanca">
-      <div class="ph-wrap"><div class="ph r-43"><img src="img/ccb-bedroom-1400.webp" sizes="(min-width: 900px) 66vw, 100vw" alt="The main bedroom, with wood panelling, warm cove lighting and a black fluted relief panel on the wall"  decoding="async" style="object-position:50% 50%"></div></div>
+      <div class="ph-wrap"><div class="ph r-43"><img src="img/ccb-bedroom-1400.webp" sizes="(min-width: 900px) 66vw, 100vw" alt="The main bedroom, with wood panelling, warm cove lighting and a black fluted relief panel on the wall" loading="lazy" decoding="async" style="object-position:50% 50%"></div></div>
       <div class="meta">
         <span class="num">01</span>
         <span class="label">Commission · Private residence</span>
@@ -316,34 +340,36 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
         <span class="more">View project</span>
       </div>
     </a>
-    <div class="work w2 grid">
-      <div class="ph-wrap"><div class="ph r-32" data-kind="architecture" data-seed="21"></div></div>
+    <a class="work w2 grid" href="#beauty-and-the-beast">
+      <div class="ph-wrap"><span class="videocard" aria-hidden="true"><span class="vc"><span class="play"></span><span class="vt">Tokyo Disneyland</span><span class="vs">Watch the attraction</span></span></span></div>
       <div class="meta">
         <span class="num">02</span>
-        <span class="label">Public art · Englewood, Colorado · 2024</span>
-        <h2>Yale &amp; Broadway</h2>
-        <span class="soon">Story in progress</span>
+        <span class="label">Scenic · Tokyo Disneyland</span>
+        <h2>Beauty and the Beast</h2>
+        <p>Leading the paint team for a production valued at more than two million dollars.</p>
+        <span class="more">View project</span>
       </div>
-    </div>
-    <div class="work w3 grid">
-      <a class="ph-wrap zoom" href="https://www.youtube.com/watch?v=plcgsCkU0xw" target="_blank" rel="noopener" aria-label="Watch Beauty and the Beast at Tokyo Disneyland on YouTube"><div class="ph r-45" data-kind="video" data-seed="31"></div></a>
+    </a>
+    <a class="work w3 grid" href="#jurassic-world-live">
+      <div class="ph-wrap"><div class="matpanel" role="img" aria-label="Fabric, fiberglass, silicone and latex"><span>Fabric</span><span>Fiberglass</span><span>Silicone</span><span>Latex</span></div></div>
       <div class="meta">
         <span class="num">03</span>
-        <span class="label">Scenic · Tokyo Disneyland</span>
-        <h2>Scenic paint lead</h2>
-        <a class="more" href="https://www.youtube.com/watch?v=plcgsCkU0xw" target="_blank" rel="noopener" style="text-decoration:none">Watch the attraction ↗</a>
-        <span class="soon">Story in progress</span>
+        <span class="label">Scenic · Animax Designs · 2019–2020</span>
+        <h2>Jurassic World Live Tour</h2>
+        <p>Life-size animatronic dinosaurs, and the painting procedures behind their skins.</p>
+        <span class="more">View project</span>
       </div>
-    </div>
-    <div class="work w4 grid">
-      <div class="ph-wrap"><div class="ph r-169" data-kind="wire" data-seed="41"></div></div>
+    </a>
+    <a class="work w4 grid" href="#sort-it-out-chicago">
+      <div class="ph-wrap"><div class="ph r-169 sio-hero"><img src="img/sio-card-1400.webp" sizes="(min-width: 900px) 58vw, 100vw" alt="Phone screens of the Sort It Out Chicago prototype: a cardboard sorting answer and the project's About page" loading="lazy" decoding="async" style="object-fit:contain"></div></div>
       <div class="meta">
         <span class="num">04</span>
         <span class="label">Design &amp; UX · DePaul · 2026</span>
         <h2>Sort It Out Chicago</h2>
-        <span class="soon">Story in progress</span>
+        <p>Helping Chicago residents find which bin an item belongs in, before they give up and use the trash.</p>
+        <span class="more">View case study</span>
       </div>
-    </div>
+    </a>
   </section>
 
   <section class="index pad" aria-labelledby="idx">
@@ -358,15 +384,17 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       </div>
     </div>
     <ul class="rows" data-filter-items="index">
-      <li data-tags="commission"><span class="n">01</span><h3><a href="#casa-cara-blanca" style="text-decoration:none">Casa Cara Blanca</a></h3><span class="k">Commission</span><div class="thumb"><div class="ph r-43"><img src="img/ccb-proposal-bloom-800.webp" sizes="220px" alt="Proposal sheet for the bloom painting, drawn to scale with its wall dimensions"  decoding="async" style="object-position:50% 50%"></div></div></li>
-      <li data-tags="public"><span class="n">02</span><h3>Yale &amp; Broadway</h3><span class="k">Public art</span><div class="thumb"><div class="ph r-43" data-kind="architecture" data-seed="21"></div></div></li>
-      <li data-tags="scenic"><span class="n">03</span><h3>Scenic paint lead, Tokyo</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="wip" data-seed="31"></div></div></li>
-      <li data-tags="design"><span class="n">04</span><h3>Sort It Out Chicago</h3><span class="k">Design &amp; UX</span><div class="thumb"><div class="ph r-43" data-kind="wire" data-seed="41"></div></div></li>
-      <li data-tags="scenic"><span class="n">05</span><h3>Universal Studios</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="field" data-seed="51"></div></div></li>
-      <li data-tags="scenic"><span class="n">06</span><h3>National Geographic</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="field" data-seed="61"></div></div></li>
-      <li data-tags="scenic"><span class="n">07</span><h3>Cirque du Soleil</h3><span class="k">Scenic</span><div class="thumb"><div class="ph r-43" data-kind="field" data-seed="71"></div></div></li>
-      <li data-tags="public"><span class="n">08</span><h3>Museum of Outdoor Arts</h3><span class="k">Public art</span><div class="thumb"><div class="ph r-43" data-kind="architecture" data-seed="81"></div></div></li>
-      <li data-tags="design"><span class="n">09</span><h3>Online wall-art storefronts</h3><span class="k">Design</span><div class="thumb"><div class="ph r-43" data-kind="wire" data-seed="91"></div></div></li>
+      <li data-tags="commission"><span class="n">01</span><h3><a href="#casa-cara-blanca" style="text-decoration:none">Casa Cara Blanca</a></h3><span class="k">Commission</span><div class="thumb"><div class="ph r-43"><img src="img/ccb-proposal-bloom-800.webp" sizes="220px" alt="Proposal sheet for the bloom painting, drawn to scale with its wall dimensions" loading="lazy" decoding="async" style="object-position:50% 50%"></div></div></li>
+      <li data-tags="public"><span class="n">02</span><h3>Yale &amp; Broadway</h3><span class="k">Public art</span></li>
+      <li data-tags="scenic"><span class="n">03</span><h3><a href="#beauty-and-the-beast" style="text-decoration:none">Beauty and the Beast, Tokyo Disneyland</a></h3><span class="k">Scenic</span></li>
+      <li data-tags="design"><span class="n">04</span><h3><a href="#sort-it-out-chicago" style="text-decoration:none">Sort It Out Chicago</a></h3><span class="k">Design &amp; UX</span><div class="thumb"><div class="ph r-43"><img src="img/sio-items.webp" alt="Common Blue Cart item cards from the Sort It Out Chicago prototype" loading="lazy" decoding="async"></div></div></li>
+      <li data-tags="scenic"><span class="n">05</span><h3>Universal Studios</h3><span class="k">Scenic</span></li>
+      <li data-tags="scenic"><span class="n">06</span><h3>National Geographic</h3><span class="k">Scenic</span></li>
+      <li data-tags="scenic"><span class="n">07</span><h3>Cirque du Soleil</h3><span class="k">Scenic</span></li>
+      <li data-tags="public"><span class="n">08</span><h3>Museum of Outdoor Arts</h3><span class="k">Public art</span></li>
+      <li data-tags="design"><span class="n">09</span><h3>Online wall-art storefronts</h3><span class="k">Design</span></li>
+      <li data-tags="scenic"><span class="n">11</span><h3><a href="#jurassic-world-live" style="text-decoration:none">Jurassic World Live Tour</a></h3><span class="k">Scenic</span></li>
+      <li data-tags="design"><span class="n">10</span><h3><a href="#maker-lab" style="text-decoration:none">The Maker Lab</a></h3><span class="k">Design &amp; UX</span></li>
     </ul>
   </section>
 </div>
@@ -402,11 +430,11 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   <section class="works pad" aria-labelledby="works-h">
     <div class="works-head"><h2 id="works-h">The works</h2><span class="label">Six pieces for one house</span></div>
     <div class="works-grid">
-      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 760px) 66vw, 100vw" alt="Painting of interlaced pink, orange, yellow and blue ribbons on a black ground"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Floating Together</span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
-      <figure class="wb zoom"><div class="ph r-23"><img src="img/ccb-work-relief-black-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Black relief panel with vertical fluting and a sweeping smooth curve"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">River of Four Currents</span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
-      <figure class="wc zoom"><div class="ph r-32"><img src="img/ccb-work-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Painting of a floating bloom of orange, pink, violet and blue folds on a pale grey ground"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t"><span class="fill">Title</span></span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
-      <figure class="wc zoom"><div class="ph r-32"><img src="img/ccb-work-geometric-pair-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="A pair of paintings of balanced geometric forms in blue, pink, orange and grey"  decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t"><span class="fill">Title</span> (diptych)</span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
-      <figure class="wb zoom" style="grid-column:auto"><div class="ph r-45"><img src="img/ccb-white-face-detail-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Daniela beside the white relief painting of a face with closed eyes"  decoding="async" style="object-position:50% 30%"></div><figcaption class="wall-label"><span class="t"><span class="fill">Title</span></span><span><span class="fill">Medium · size · year</span></span></figcaption></figure>
+      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 760px) 66vw, 100vw" alt="Painting of interlaced pink, orange, yellow and blue ribbons on a black ground" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Floating Together</span><span>Each color is one member of the family, in a poetic reinterpretation of the floating plastic bag scene in American Beauty (1999).</span></figcaption></figure>
+      <figure class="wb zoom"><div class="ph r-23"><img src="img/ccb-work-relief-black-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Black relief panel with vertical fluting and a sweeping smooth curve" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">River of Four Currents</span><span>Black on black: the family as an abstract river flowing in four currents.</span></figcaption></figure>
+      <figure class="wc zoom"><div class="ph r-32"><img src="img/ccb-work-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Painting of a floating bloom of orange, pink, violet and blue folds on a pale grey ground" loading="lazy" decoding="async" style="object-position:50% 50%"></div></figure>
+      <figure class="wc zoom"><div class="ph r-32"><img src="img/ccb-work-geometric-pair-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="A pair of paintings of balanced geometric forms in blue, pink, orange and grey" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Diptych</span></figcaption></figure>
+      <figure class="wb zoom" style="grid-column:auto"><div class="ph r-45"><img src="img/ccb-white-face-detail-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Daniela beside the white relief painting of a face with closed eyes" loading="lazy" decoding="async" style="object-position:50% 30%"></div></figure>
     </div>
   </section>
 
@@ -437,56 +465,42 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   <!-- III. Process -->
   <section class="chapter grid pad" aria-labelledby="c3">
     <div class="side"><span class="no">III</span><span class="label">Research methods used</span><h2 id="c3">How it came to life</h2></div>
-    <div class="body"><p>Seven steps. In each one, listening came before painting.</p></div>
+    <div class="body"><p>Every concept started from the same idea: a family of four. Four colors, four forms or four currents, each one standing for a member of the family.</p></div>
     <ol class="wide cards">
       <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st01">
-          <span class="ph r-45"><img src="img/ccb-before-bedroom-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="The main bedroom before the art: bare wood-panelled walls under warm cove lighting"  decoding="async" style="object-position:50% 50%"></span>
+          <span class="ph r-45"><img src="img/ccb-before-bedroom-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="The main bedroom before the art: bare wood-panelled walls under warm cove lighting" loading="lazy" decoding="async" style="object-position:50% 50%"></span>
           <span class="veil" id="st01"><span class="label">01 · Study the space</span><span>Before choosing a single color, I studied the walls: their size, the light, the sightlines, the way people move from room to room. I started from photographs of the empty rooms and measured every wall.</span></span>
         </button>
         <div class="cap"><span class="no">01 · Study the space</span><h3>Reading the house</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
       </li>
       <li>
-        <button class="reveal" type="button" aria-expanded="false" aria-controls="st02">
-          <span class="ph r-45" data-kind="field" data-seed="103"></span>
-          <span class="veil" id="st02"><span class="label">02 · Listen</span><span>These paintings had to be about them. <span class="fill">How did you learn their story?</span> That story became the concept: <span class="fill">the concept in one sentence</span>.</span></span>
-        </button>
-        <div class="cap"><span class="no">02 · Listen</span><h3>Listening to the family</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
-      </li>
-      <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st03">
-          <span class="ph r-45"><img src="img/ccb-proposal-geometric-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Proposal sheet: two geometric compositions in blue, pink and orange, each drawn to scale with its wall dimensions"  decoding="async" style="object-position:50% 50%"></span>
-          <span class="veil" id="st03"><span class="label">03 · Propose</span><span>Instead of asking the family to imagine, I showed them. A range of proposals let them compare, react and choose. They chose <span class="fill">#</span> of <span class="fill">#</span>.</span></span>
+          <span class="ph r-45"><img src="img/ccb-proposal-geometric-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Proposal sheet: two geometric compositions in blue, pink and orange, each drawn to scale with its wall dimensions" loading="lazy" decoding="async" style="object-position:50% 50%"></span>
+          <span class="veil" id="st03"><span class="label">02 · Propose</span><span>Instead of asking the family to imagine, I showed them. Two proposal books held about twenty concepts, from constellations on the night each person was born to a knot of four cords and a flower in four colors, so they could compare, react and choose.</span></span>
         </button>
-        <div class="cap"><span class="no">03 · Propose</span><h3>Showing, not asking</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+        <div class="cap"><span class="no">02 · Propose</span><h3>Showing, not asking</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
       </li>
       <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st04">
-          <span class="ph r-45"><img src="img/ccb-render-bedroom-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Rendering of the main bedroom with the black relief panel placed above the bed"  decoding="async" style="object-position:35% 50%"></span>
-          <span class="veil" id="st04"><span class="label">04 · Prototype</span><span>I placed the chosen pieces into renderings of their own rooms. Scale, color and placement were decided before any paint touched canvas. No guessing, no surprises.</span></span>
+          <span class="ph r-45"><img src="img/ccb-render-bedroom-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Rendering of the main bedroom with the black relief panel placed above the bed" loading="lazy" decoding="async" style="object-position:35% 50%"></span>
+          <span class="veil" id="st04"><span class="label">03 · Prototype</span><span>I placed the chosen pieces into renderings of their own rooms, staged digitally on photographs of the furniture. Scale, color and placement were decided before any paint touched canvas. No guessing, no surprises.</span></span>
         </button>
-        <div class="cap"><span class="no">04 · Prototype</span><h3>Seeing it before it exists</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+        <div class="cap"><span class="no">03 · Prototype</span><h3>Seeing it before it exists</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
       </li>
       <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st05">
-          <span class="ph r-45"><img src="img/ccb-render-exterior-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Rendering of the house's garden facade with paintings and a sculpture placed along the glass wall"  decoding="async" style="object-position:60% 50%"></span>
-          <span class="veil" id="st05"><span class="label">05 · Collaborate</span><span>I worked alongside the interior designer, so the art and the rooms were designed as one. <span class="fill">What did you align on?</span></span></span>
+          <span class="ph r-45"><img src="img/ccb-render-exterior-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="Rendering of the house's garden facade with paintings and a sculpture placed along the glass wall" loading="lazy" decoding="async" style="object-position:60% 50%"></span>
+          <span class="veil" id="st05"><span class="label">04 · Collaborate</span><span>I worked alongside the interior designer, so the art and the rooms were designed as one.</span></span>
         </button>
-        <div class="cap"><span class="no">05 · Collaborate</span><h3>Designing the rooms together</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
-      </li>
-      <li>
-        <button class="reveal" type="button" aria-expanded="false" aria-controls="st06">
-          <span class="ph r-45" data-kind="wip" data-seed="108"></span>
-          <span class="veil" id="st06"><span class="label">06 · Make</span><span>With every decision made, the painting could be free and focused. <span class="fill">Medium, sizes and how long it took.</span></span></span>
-        </button>
-        <div class="cap"><span class="no">06 · Make</span><h3>In the studio</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+        <div class="cap"><span class="no">04 · Collaborate</span><h3>Designing the rooms together</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
       </li>
       <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st07">
-          <span class="ph r-45"><img src="img/ccb-house-exterior-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="The house seen from the driveway, its cantilevered volumes above a planted slope"  decoding="async" style="object-position:45% 50%"></span>
-          <span class="veil" id="st07"><span class="label">07 · Deliver</span><span>The paintings arrived as promised and took their place in the house they were made for.</span></span>
+          <span class="ph r-45"><img src="img/ccb-house-exterior-1400.webp" sizes="(min-width: 700px) 25vw, 78vw" alt="The house seen from the driveway, its cantilevered volumes above a planted slope" loading="lazy" decoding="async" style="object-position:45% 50%"></span>
+          <span class="veil" id="st07"><span class="label">05 · Deliver</span><span>I painted with professional materials, Winsor &amp; Newton oils and Golden acrylics. Each piece was handled with care and delivered ready to become part of the house.</span></span>
         </button>
-        <div class="cap"><span class="no">07 · Deliver</span><h3>Arrival</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
+        <div class="cap"><span class="no">05 · Deliver</span><h3>Arrival</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
       </li>
     </ol>
   </section>
@@ -496,7 +510,6 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="c4">What this taught me</h2></div>
     <div class="body">
       <ol class="insights"><li><span class="n">01</span><p>Choosing from real options was easier for the family than describing what they wanted from scratch.</p></li><li><span class="n">02</span><p>Seeing the work in renderings of their own rooms built trust before any painting existed.</p></li></ol><details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ol class="insights"><li><span class="n">03</span><p>Art and interiors work better designed together than added at the end.</p></li><li><span class="n">04</span><p>Meaning matters as much as fit: the pieces had to be about this family, not only sized for this wall.</p></li></ol></div></details>
-      <p class="label"><span class="fill">Drafts from your summary: keep, change or replace</span></p>
     </div>
   </section>
 
@@ -507,27 +520,17 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       <p>What the family approved is what they received. Below, each rendering sits beside the finished painting.</p>
       <div class="palette">
         <span class="label">Project color palette</span>
-        <div class="chips"><div class="chip"><i style="background:#232224"></i><span><span class="fill">Charcoal ground</span></span></div><div class="chip"><i style="background:#e83d5b"></i><span><span class="fill">Fuchsia</span></span></div><div class="chip"><i style="background:#ef6d72"></i><span><span class="fill">Coral</span></span></div><div class="chip"><i style="background:#f5b23f"></i><span><span class="fill">Saffron</span></span></div><div class="chip"><i style="background:#685cb6"></i><span><span class="fill">Violet</span></span></div><div class="chip"><i style="background:#6fb3dc"></i><span><span class="fill">Sky</span></span></div><div class="chip"><i style="background:#d3d3d6"></i><span><span class="fill">Plaster white</span></span></div>
+        <div class="chips"><div class="chip"><i style="background:#232224"></i><span>Charcoal ground</span></div><div class="chip"><i style="background:#e83d5b"></i><span>Fuchsia</span></div><div class="chip"><i style="background:#ef6d72"></i><span>Coral</span></div><div class="chip"><i style="background:#f5b23f"></i><span>Saffron</span></div><div class="chip"><i style="background:#685cb6"></i><span>Violet</span></div><div class="chip"><i style="background:#6fb3dc"></i><span>Sky</span></div><div class="chip"><i style="background:#d3d3d6"></i><span>Plaster white</span></div>
         </div>
-        <p style="color:var(--ink-soft);font-size:var(--t-small)">Colors sampled from the photographs of the paintings; names are suggestions. <span class="fill">Why these colors: the house's materials, its light, the family's story?</span></p>
+        <p style="color:var(--ink-soft);font-size:var(--t-small)">Colors sampled from the finished paintings.</p>
       </div>
     </div>
     <div class="wide" style="display:grid;gap:clamp(40px,6vw,80px)">
       <div class="compares">
-        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-render-living-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Rendering of the living room with the white face relief on the wall beside the sofa"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Rendering</span><span>Living room, as proposed</span></figcaption></figure>
-        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-living-room-wide-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="The finished living room with the white face relief installed on its column"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Living room, as delivered</span></figcaption></figure>
-        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-render-hallway-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Rendering of the glass hallway with the bloom painting on the wall"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Rendering</span><span>Hallway, as proposed</span></figcaption></figure>
-        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-hallway-bloom-2-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="The finished hallway with the bloom painting installed"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Hallway, as delivered</span></figcaption></figure>
-      </div>
-      <div class="twist grid">
-        <div class="q">
-          <span class="label" style="color:var(--accent)">The one that changed</span>
-          <blockquote>Except one, by design. The family asked for something more personal.</blockquote>
-          <details class="more"><summary><span class="o">Read the story</span><span class="c">Close</span></summary><div class="inner"><p>That piece became theirs in a way no rendering could show. <span class="fill">What did they ask for, and what did you change?</span></p></div></details>
-        </div>
-        <figure style="grid-column:auto">
-          <div class="compare"><span class="ph r-45" data-kind="room" data-seed="130"></span><span class="ph top" data-kind="room-warm" data-seed="131"></span><span class="handle"></span><span class="ctag l">Proposal</span><span class="ctag r">With the twist</span><input type="range" min="0" max="100" value="50" aria-label="Slide to compare the original proposal with the final, personalized painting"></div>
-        </figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-render-living-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Rendering of the living room with the white face relief on the wall beside the sofa" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Rendering</span><span>Living room, as proposed</span></figcaption></figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-living-room-wide-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="The finished living room with the white face relief installed on its column" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Living room, as delivered</span></figcaption></figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-render-hallway-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Rendering of the glass hallway with the bloom painting on the wall" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Rendering</span><span>Hallway, as proposed</span></figcaption></figure>
+        <figure class="zoom"><div class="ph r-43"><img src="img/ccb-hallway-bloom-2-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="The finished hallway with the bloom painting installed" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Hallway, as delivered</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -537,12 +540,10 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     <div class="side"><span class="no">VI</span><span class="label">Outcomes / evaluation</span><h2 id="c6">Living with the work</h2></div>
     <div class="body">
       <p>The family received paintings that matched what they approved, and one that went further, at their request.</p>
-      <p><span class="fill">A sentence from the family, in their words, if they're happy to share it.</span></p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p><span class="fill">Anything after: referrals, new commissions, the designer's reaction?</span></p></div></details>
     </div>
       <div class="wide essay">
-      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-geometric-pair-angle-1400.webp" sizes="(min-width: 760px) 44vw, 100vw" alt="Two paintings of stacked geometric forms in blue, pink and orange on grey grounds, seen at an angle in the hallway"  decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Hallway</span></figcaption></figure>
-      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-bedroom-alt-1400.webp" sizes="(min-width: 760px) 44vw, 100vw" alt="Another view of the bedroom and the black relief panel"  decoding="async" style="object-position:50% 45%"></div><figcaption><span class="label">Final</span><span>Bedroom</span></figcaption></figure>
+      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-geometric-pair-angle-1400.webp" sizes="(min-width: 760px) 44vw, 100vw" alt="Two paintings of stacked geometric forms in blue, pink and orange on grey grounds, seen at an angle in the hallway" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption><span class="label">Final</span><span>Hallway</span></figcaption></figure>
+      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-bedroom-alt-1400.webp" sizes="(min-width: 760px) 44vw, 100vw" alt="Another view of the bedroom and the black relief panel" loading="lazy" decoding="async" style="object-position:50% 45%"></div><figcaption><span class="label">Final</span><span>Bedroom</span></figcaption></figure>
     </div>
   </section>
 
@@ -550,82 +551,471 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   <section class="chapter grid pad" aria-labelledby="c7">
     <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="c7">Looking back</h2></div>
     <div class="body">
-      <p><span class="fill">What you're proudest of, and what was hardest.</span></p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p>What I'd add now, with user-centered design methods:</p>
+      <p>What I'd add now, with user-centered design methods:</p>
       <ul>
         <li>A follow-up conversation with the family months later, to learn how they live with the work</li>
         <li>Observing how each room is actually used before choosing sizes and placement</li>
         <li>Testing two or three rendering options earlier, to see which reactions predict the final choice</li>
-      </ul></div></details>
+      </ul>
     </div>
   </section>
 
   <div class="pad">
-    <a class="next" href="#commission">
-      <span class="label">Your walls have a story too</span>
-      <h2>Begin a commission →</h2>
+    <a class="next" href="#sort-it-out-chicago">
+      <span class="label">Next project</span>
+      <h2>Sort It Out Chicago →</h2>
     </a>
   </div>
 </div>
 
-<!-- ================= GALLERY ================= -->
-<div class="view" data-view="gallery" hidden>
-  <div class="page-top pad">
-    <span class="label">Individual works</span>
-    <h1 class="rise">Gallery</h1>
-    <div class="filters" role="group" aria-label="Filter gallery" data-filter-group="gallery">
-      <button type="button" data-filter="all" aria-pressed="true">All</button>
-      <button type="button" data-filter="painting" aria-pressed="false">Painting</button>
-      <button type="button" data-filter="sculpture" aria-pressed="false">Sculpture</button>
-      <button type="button" data-filter="scenic" aria-pressed="false">Scenic</button>
-      <button type="button" data-filter="motion" aria-pressed="false">Motion</button>
-    </div>
+<!-- ================= BEAUTY AND THE BEAST, TOKYO ================= -->
+<div class="view" data-view="beauty-and-the-beast" hidden>
+  <div class="cs-top pad">
+    <a class="back" href="#projects">← Projects</a>
+    <span class="label">02 · Scenic · Tokyo Disneyland</span>
+    <h1 class="rise">Beauty and the Beast</h1>
   </div>
-  <div class="masonry pad" data-filter-items="gallery">
-    <figure class="zoom" data-tags="painting"><div class="ph r-45" data-kind="field" data-seed="201"></div><figcaption><span class="t">Pray</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-23" data-kind="field" data-seed="202"></div><figcaption><span class="t">Longing</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-11" data-kind="field" data-seed="203"></div><figcaption><span class="t">Forgiving</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-45" data-kind="field" data-seed="204"></div><figcaption><span class="t">Morning</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-32" data-kind="field" data-seed="205"></div><figcaption><span class="t">Bogotá in the Distance</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-23" data-kind="field" data-seed="206"></div><figcaption><span class="t">Wondering</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-11" data-kind="field" data-seed="207"></div><figcaption><span class="t">100 Calorie Bag I</span><span>16 × 16 in</span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-11" data-kind="field" data-seed="208"></div><figcaption><span class="t">100 Calorie Bag II</span><span>16 × 16 in</span></figcaption></figure>
-    <figure class="zoom" data-tags="painting"><div class="ph r-45" data-kind="field" data-seed="209"></div><figcaption><span class="t">Homage to the 28th I</span><span><span class="fill">Medium · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="sculpture"><div class="ph r-23" data-kind="portrait" data-seed="210"></div><figcaption><span class="t">Walking Man</span><span><span class="fill">Material · size</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="scenic"><div class="ph r-43" data-kind="wip" data-seed="211"></div><figcaption><span class="t">King Kong</span><span><span class="fill">Where · year</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="scenic"><div class="ph r-32" data-kind="architecture" data-seed="212"></div><figcaption><span class="t">Jurassic World</span><span><span class="fill">Where · year</span></span></figcaption></figure>
-    <figure class="zoom" data-tags="motion"><div class="ph r-169" data-kind="field" data-seed="213"></div><figcaption><span class="t"><span class="fill">Motion piece</span></span><span>Loop</span></figcaption></figure>
+  <div class="pad">
+    <figure class="bleed hero-in">
+      <a class="videocard" href="https://www.youtube.com/watch?v=plcgsCkU0xw" target="_blank" rel="noopener" aria-label="Watch Beauty and the Beast at Tokyo Disneyland on YouTube"><span class="vc"><span class="play" aria-hidden="true"></span><span class="vt">Watch the attraction</span><span class="vs">Beauty and the Beast · Tokyo Disneyland · YouTube ↗</span></span></a>
+      <figcaption><span class="label">Video</span><span>Opens the attraction on YouTube</span></figcaption>
+    </figure>
+  </div>
+
+  <section class="cs-intro grid pad">
+    <p class="lead">I led the paint team for Beauty and the Beast at Tokyo Disneyland, a production valued at more than two million dollars.</p>
+    <dl class="spec">
+      <dt>Client</dt><dd>Walt Disney Imagineering</dd>
+      <dt>Place</dt><dd>Tokyo Disneyland, Japan</dd>
+      <dt>Role</dt><dd>Scenic paint team lead</dd>
+      <dt>Scale</dt><dd>A production valued at more than $2 million</dd>
+    </dl>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b1">
+    <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="b1">A story you walk into</h2></div>
+    <div class="body">
+      <p>In a theme-park attraction, the scenery is the story. Every painted surface has to match the approved design and look the same across a large site, painted by many hands.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b2">
+    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="b2">Leading the paint team</h2></div>
+    <div class="body">
+      <p>I directed the scenic paint team for the attraction.</p>
+      <p>As a scenic art lead, my work is to:</p>
+      <ul>
+        <li>Create and present paint samples to the client</li>
+        <li>Work with the client from sampling through installation</li>
+        <li>Turn approved samples into paint procedures that team members of all skill levels can follow</li>
+        <li>Teach those procedures to the team, schedule the work, and order and estimate materials</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b3">
+    <div class="side"><span class="no">III</span><span class="label">Methods used</span><h2 id="b3">Sample, approve, repeat</h2></div>
+    <div class="body">
+      <ol class="insights">
+        <li><span class="n">01</span><p><strong>Sampling:</strong> small paint samples show the client the finish before the full surface is painted.</p></li>
+        <li><span class="n">02</span><p><strong>Client review:</strong> the client approves a sample, and it becomes the standard.</p></li>
+        <li><span class="n">03</span><p><strong>Procedure:</strong> the approved sample is written up step by step.</p></li>
+        <li><span class="n">04</span><p><strong>Teaching:</strong> the team learns the procedure and paints at scale.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b4">
+    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="b4">What leading taught me</h2></div>
+    <div class="body">
+      <ol class="insights">
+        <li><span class="n">01</span><p>A client decides faster when they can see a real sample than when they read a description.</p></li>
+        <li><span class="n">02</span><p>A finish only scales when it is written down so that every painter can repeat it.</p></li>
+        <li><span class="n">03</span><p>On a big team, the procedure is the design: it is what carries the approved look into every corner.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b5">
+    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="b5">The sample is the contract</h2></div>
+    <div class="body">
+      <p>Nothing went to full scale before the client had approved a sample. The approved sample became the reference that every painter matched.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b6">
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes</span><h2 id="b6">Open to guests</h2></div>
+    <div class="body">
+      <p>The attraction opened to guests at Tokyo Disneyland.</p>
+      <p><a href="https://www.youtube.com/watch?v=plcgsCkU0xw" target="_blank" rel="noopener">Watch the attraction on YouTube ↗</a></p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="b7">
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="b7">Samples are prototypes</h2></div>
+    <div class="body">
+      <p>Looking back with what I learned in user-centered design, a paint sample is a prototype: it lets the client react to something real before the expensive work begins. The same habit of showing, testing and then scaling is what I bring to designing for screens.</p>
+    </div>
+  </section>
+
+  <div class="pad">
+    <a class="next" href="#jurassic-world-live">
+      <span class="label">Next project</span>
+      <h2>Jurassic World Live Tour →</h2>
+    </a>
   </div>
 </div>
 
-<!-- ================= ABOUT ================= -->
+<!-- ================= JURASSIC WORLD LIVE TOUR ================= -->
+<div class="view" data-view="jurassic-world-live" hidden>
+  <div class="cs-top pad">
+    <a class="back" href="#projects">← Projects</a>
+    <span class="label">03 · Scenic · Animax Designs, Nashville · 2019–2020</span>
+    <h1 class="rise">Jurassic World Live Tour</h1>
+  </div>
+  <div class="pad">
+    <figure class="bleed hero-in">
+      <div class="matpanel" role="img" aria-label="The materials painted for the show: fabric, fiberglass, silicone and latex">
+        <span>Fabric</span><span>Fiberglass</span><span>Silicone</span><span>Latex</span>
+      </div>
+      <figcaption><span class="label">Life-size animatronic dinosaurs</span><span>Painted in the shop for a touring arena show</span></figcaption>
+    </figure>
+  </div>
+
+  <section class="cs-intro grid pad">
+    <p class="lead">I painted life-size animatronic dinosaurs for a touring arena show, and wrote the painting procedures that turned each faux skin into a finish a whole team could repeat.</p>
+    <dl class="spec">
+      <dt>Studio</dt><dd>Animax Designs, Nashville, Tennessee</dd>
+      <dt>Dates</dt><dd>July 2019 (contract) · Jan–Aug 2020</dd>
+      <dt>Role</dt><dd>Scenic artist lead</dd>
+      <dt>Materials</dt><dd>Fabric, fiberglass, silicone, latex</dd>
+      <dt>Techniques</dt><dd>Airbrush, automotive spraying, traditional painting</dd>
+    </dl>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j1">
+    <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="j1">Skin that moves</h2></div>
+    <div class="body">
+      <p>The most challenging part was making skin that is made out of fabric look like skin. Each dinosaur also combined fiberglass, silicone and latex, and every material takes paint differently, yet the whole body had to read as one living animal while it moved.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j2">
+    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="j2">Scenic artist lead</h2></div>
+    <div class="body">
+      <ul>
+        <li>Designed the paint processes and painted the dinosaurs</li>
+        <li>Painted life-size animatronic characters in a fast-paced shop</li>
+        <li>Painted fabric, fiberglass, silicone and latex</li>
+        <li>Developed painting procedures to create faux materials such as dinosaur skins</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j3">
+    <div class="side"><span class="no">III</span><span class="label">Methods used</span><h2 id="j3">Test, then repeat</h2></div>
+    <div class="body">
+      <p>The work was hands-on: matching the finish on each material, then turning what worked into a procedure.</p>
+      <ul>
+        <li>Airbrushing for fine detail and gradients</li>
+        <li>Automotive spraying for durable, even coats</li>
+        <li>Traditional painting by hand</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j4">
+    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="j4">What the work taught</h2></div>
+    <div class="body">
+      <ol class="insights">
+        <li><span class="n">01</span><p>One material, one recipe: silicone, latex, fiberglass and fabric each needed their own painting approach.</p></li>
+        <li><span class="n">02</span><p>A procedure is what lets a fast-paced team repeat a finish.</p></li>
+        <li><span class="n">03</span><p>The skin has to work in motion and from a distance, not only up close at the paint table.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j5">
+    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="j5">Write it down</h2></div>
+    <div class="body">
+      <p>I turned the finishes into written painting procedures for faux dinosaur skins, so a look could be repeated from character to character instead of reinvented each time.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j6">
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes</span><h2 id="j6">On tour</h2></div>
+    <div class="body">
+      <p>The painted characters left the shop for Jurassic World Live Tour, and the procedures stayed with the team to repeat the finishes on other characters.</p>
+      <p><a href="https://www.krem.com/article/entertainment/events/jurassic-world-live-tour-spokane/293-2fe43c85-6a03-4c4b-be5f-697e54472980" target="_blank" rel="noopener">See the show on tour (KREM news) ↗</a></p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="j7">
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="j7">A process others can follow</h2></div>
+    <div class="body">
+      <p>Writing a procedure is designing for the people who use it: the next painter has to understand each step and get the same result. That is the same idea as standards and documentation in UX. Next time I would test each procedure with a painter who hadn't seen me do it, and revise the steps where they got stuck.</p>
+    </div>
+  </section>
+
+  <div class="pad">
+    <a class="next" href="#sort-it-out-chicago">
+      <span class="label">Next project</span>
+      <h2>Sort It Out Chicago →</h2>
+    </a>
+  </div>
+</div>
+
+<!-- ================= SORT IT OUT CHICAGO ================= -->
+<div class="view" data-view="sort-it-out-chicago" hidden>
+  <div class="cs-top pad">
+    <a class="back" href="#projects">← Projects</a>
+    <span class="label">04 · Design &amp; UX · DePaul University · 2026</span>
+    <h1 class="rise">Sort It Out Chicago</h1>
+  </div>
+  <div class="pad">
+    <figure class="bleed hero-in">
+      <div class="ph r-169 sio-hero"><img src="img/sio-hero-1400.webp" sizes="100vw" alt="Three phone screens of the Sort It Out Chicago prototype: the home search, a sorting answer for rigid plastic tubs, and the photo camera" fetchpriority="high" decoding="async" style="object-fit:contain"></div>
+      <figcaption><span class="label">Team project · HCI 440</span><span>A search tool that tells Chicago residents which bin an item belongs in</span></figcaption>
+    </figure>
+  </div>
+
+  <section class="cs-intro grid pad">
+    <p class="lead">When Chicagoans aren't sure where something goes, many throw it in the trash. Our team designed a tool that answers "where does this go?" in seconds, before they give up.</p>
+    <dl class="spec">
+      <dt>Course</dt><dd>HCI 440, Intro to User-Centered Design</dd>
+      <dt>Year</dt><dd>Fall 2026, 10 weeks</dd>
+      <dt>Team</dt><dd>Team Phoenix: Five by Design (5 people)</dd>
+      <dt>Tools</dt><dd>Qualtrics, Figma</dd>
+      <dt>Role</dt><dd>Personas, wireframes, design merge, heuristic review, usability observer</dd>
+    </dl>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s1">
+    <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="s1">The trash wins by default</h2></div>
+    <div class="body">
+      <p>Chicago's residential recycling rate is low compared to other large US cities. Tools already exist and googling is easy, yet people still choose the trash when they're unsure.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><p>That told me the problem is not only a lack of knowledge but a lack of interest in finding out. We focused on homes and buildings with up to 4 units, the buildings the City's Blue Cart service collects from.</p></div></details>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s2">
+    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="s2">From personas to the merged design</h2></div>
+    <div class="body">
+      <p>I co-led the personas, drew the wireframes, and merged all five teammates' wireframes into one annotated team design.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+        <li>Co-led the personas with one teammate and designed the persona pages</li>
+        <li>Drafted our main requirement: find the right bin fast</li>
+        <li>Drew the mobile and desktop wireframes for our concept report</li>
+        <li>Merged the team's wireframes, keeping the best ideas based on Nielsen's heuristics</li>
+        <li>Ran a heuristic review of my own screens and fixed what it found</li>
+        <li>Observed two usability sessions and wrote the observer notes</li>
+      </ul></div></details>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s3">
+    <div class="side"><span class="no">III</span><span class="label">Research methods used</span><h2 id="s3">Listening at every step</h2></div>
+    <div class="body">
+      <ol class="insights">
+        <li><span class="n">12</span><p><strong>Semi-structured interviews:</strong> 11 residents plus 1 waste management expert. I interviewed 2 participants.</p></li>
+        <li><span class="n">105</span><p><strong>Survey:</strong> eligible responses, then a second round with 72 Chicago respondents to test early design ideas.</p></li>
+        <li><span class="n">2</span><p><strong>Observations:</strong> watching people sort waste at a public coffee shop.</p></li>
+        <li><span class="n">4</span><p><strong>Personas</strong> from affinity mapping: Practical Sorter, Unbothered Disposer, Discouraged Neighbor, Confident Recycler.</p></li>
+        <li><span class="n">10</span><p><strong>Heuristic evaluation:</strong> wireframes reviewed against Nielsen's 10 usability heuristics, with severity ratings.</p></li>
+        <li><span class="n">5</span><p><strong>Moderated usability tests:</strong> at least one participant per teammate, matched to a persona, with think-aloud tasks.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s4">
+    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="s4">What the research said</h2></div>
+    <div class="body">
+      <ol class="insights">
+        <li><span class="n">39%</span><p>put an item they're unsure about in the regular trash first.</p></li>
+        <li><span class="n">58%</span><p>received no recycling information in the past year.</p></li>
+        <li><span class="n">42%</span><p>have little or no trust that their recycling gets recycled. One participant stopped recycling after hearing about a fine.</p></li>
+        <li><span class="n">74%</span><p>of respondents were 45 or older, so the design had to be easy to read and work without a smartphone.</p></li>
+        <li><span class="n">Obs</span><p>Signs on bins aren't enough: food and liquid containers went into recycling despite them.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s5">
+    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="s5">One question, one clear answer</h2></div>
+    <div class="body">
+      <p>In the survey, typing the item's name was the most popular way to search, and most people wanted one clear answer. So the typing search bar came first and largest, with camera and barcode as two tabs below it, each half its width.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+        <li>The answer shows right in the search suggestions, with no extra screens: every extra step is a chance to give up and use the trash.</li>
+        <li>Each answer shows its Chicago source and a "last reviewed" date, because trust is low.</li>
+        <li>QR codes on the bins, a teammate's idea I kept, so people reach the tool from where they throw things away.</li>
+        <li>Nothing smaller than 11 px, and darker gray text: my heuristic review rated small text severity 3, and our audience skews older.</li>
+        <li>No account and nothing stored per household, so residents never fear penalties for asking.</li>
+        <li>English and Spanish versions.</li>
+      </ul></div></details>
+    </div>
+    <div class="wide screens">
+      <figure><img src="img/sio-home.webp" alt="Home screen: a large search bar with camera and microphone, above common Blue Cart items" loading="lazy" decoding="async"><figcaption><span class="label">Home</span><span>Search first, largest</span></figcaption></figure>
+      <figure><img src="img/sio-suggest.webp" alt="Typing plastic tub shows a suggestion marked condition matters" loading="lazy" decoding="async"><figcaption><span class="label">Search</span><span>The answer in the suggestions</span></figcaption></figure>
+      <figure><img src="img/sio-camera.webp" alt="Camera panel with Photo and Barcode tabs and a frame guide" loading="lazy" decoding="async"><figcaption><span class="label">Camera</span><span>Photo or barcode</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s6">
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes / evaluation</span><h2 id="s6">What testing showed</h2></div>
+    <div class="body">
+      <p>I observed two moderated sessions. The search worked, and it taught: after one search, a participant applied the rule on her own in the final check.</p>
+      <div class="twist" style="padding:0">
+        <blockquote>"It has one of the numbers 5, it's not black, and it has the triangle it said on the website."</blockquote>
+        <span class="label">Participant U1, final knowledge check</span>
+      </div>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+        <li><strong>Predictive search was the favorite.</strong> U3: "You could just see the answer without even selecting it." She called it "a very effective website."</li>
+        <li><strong>"No exact match" recovered well.</strong> Both participants found Milk and Juice Cartons on their own.</li>
+        <li><strong>Photo search gets one chance.</strong> When the photo returned the wrong item, U3 said she'd type instead and be "a lot less likely to ever use that function again." She preferred barcode.</li>
+        <li><strong>Preparation steps get skipped.</strong> U3: "I might miss the blue part of how to prepare it."</li>
+        <li><strong>Signs need a real question.</strong> The can character caught U1's eye, but U3 asked: "What is this gonna tell me that I don't already know?" Furniture, electronics and motor oil got her attention right away.</li>
+        <li>We presented the working prototype in class on Nov 17, 2026. In feedback on Milestone 3, our professor named our team as a good model for connecting evidence to design decisions.</li>
+      </ul></div></details>
+    </div>
+    <div class="wide screens">
+      <figure><img src="img/sio-result.webp" alt="Sorting answer: rigid plastic tubs are conditionally accepted in the Blue Cart, with steps before it goes in" loading="lazy" decoding="async"><figcaption><span class="label">Answer</span><span>Conditions shown first</span></figcaption></figure>
+      <figure><img src="img/sio-numbers.webp" alt="Explanation of recycling numbers 1 to 7 with a link to the City of Chicago source" loading="lazy" decoding="async"><figcaption><span class="label">Trust</span><span>The City source, every time</span></figcaption></figure>
+      <figure><img src="img/sio-nomatch.webp" alt="No exact match for orange juice carton, suggesting milk and juice cartons" loading="lazy" decoding="async"><figcaption><span class="label">No exact match</span><span>A close answer, not a dead end</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="s7">
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="s7">Underpainting first</h2></div>
+    <div class="body">
+      <p>Wireframing taught me to take a step back before deciding on the pretty factors. It's like the underpainting in a classical painting, where the structure is set in light and dark before the color goes on top.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner">
+        <p>Because of my art background, I saw two problems: users needed more information, and the tool needed to add value so people would want to use it. I designed a neighborhood competition, a game with friendly characters and a point system, but the survey had no room to test them, and we delivered a tool that only searches. Next time I would spend more time learning whether users want more creative solutions, and finding the real problem to solve.</p>
+        <p>I also learned to get off the computer and look at my screens on a phone: on a zoomed-in monitor it's easy to miss text that people in their 40s and older can't read.</p>
+        <p>Next I would test preparation steps that are impossible to miss, a photo search that offers typing the moment it fails, and signs about hard items instead of easy ones like cans.</p>
+      </div></details>
+    </div>
+  </section>
+
+  <div class="pad">
+    <a class="next" href="#maker-lab">
+      <span class="label">Next case study</span>
+      <h2>The Maker Lab →</h2>
+    </a>
+  </div>
+</div>
+
+<!-- ================= THE MAKER LAB ================= -->
+<div class="view" data-view="maker-lab" hidden>
+  <div class="cs-top pad">
+    <a class="back" href="#projects">← Projects</a>
+    <span class="label">10 · Design &amp; UX · Field research · 2026</span>
+    <h1 class="rise">The Maker Lab</h1>
+  </div>
+  <div class="pad">
+    <figure class="bleed hero-in">
+      <div class="ph r-219" data-kind="wip" data-seed="141"></div>
+      <figcaption><span class="label">Observation study · HCI 440</span><span>Harold Washington Library Center, Chicago</span></figcaption>
+    </figure>
+  </div>
+
+  <section class="cs-intro grid pad">
+    <p class="lead">How do walk-in visitors get from "I have a file" to "I have a finished object" in Chicago's first free public makerspace?</p>
+    <dl class="spec">
+      <dt>Course</dt><dd>HCI 440, Individual Assignment 1</dd>
+      <dt>Date</dt><dd>Sept 22, 2026, one hour of open lab</dd>
+      <dt>Team</dt><dd>Solo</dd>
+      <dt>Methods</dt><dd>Structured observation, field notes, self-test, secondary research</dd>
+      <dt>Role</dt><dd>Researcher and writer</dd>
+    </dl>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m1">
+    <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="m1">Free tools, hard steps</h2></div>
+    <div class="body">
+      <p>Anyone can walk into the Maker Lab and use 3D printers, a Cricut, laser cutters and sewing machines for free, with no sign-up. I chose it because people who can't afford machines or classes should still be able to explore their hobbies and creative needs.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m2">
+    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="m2">Solo researcher</h2></div>
+    <div class="body">
+      <p>I planned the observation, took field notes, reviewed related research, analyzed the domain and wrote the report.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m3">
+    <div class="side"><span class="no">III</span><span class="label">Research methods used</span><h2 id="m3">Watching without helping</h2></div>
+    <div class="body">
+      <ul>
+        <li><strong>Structured observation:</strong> 3 visitors aged about 55 to 78 and the 2 staff members helping them. I watched without interacting and described people only by role and approximate age.</li>
+        <li><strong>Field notes:</strong> a template for setting, tools, routines and key moments, with full notes written right after.</li>
+        <li><strong>Self-test:</strong> I tried to follow the wall instructions and log in to a lab laptop myself.</li>
+        <li><strong>Secondary research:</strong> Hu, Pradhan, Bonsignore and Lazar (2024), a three-year study of a makerspace run by older adults.</li>
+        <li><strong>Analysis:</strong> Norman's design principles, Nielsen's heuristics and a 5-criteria domain score.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m4">
+    <div class="side"><span class="no">IV</span><span class="label">Key insights</span><h2 id="m4">What I saw</h2></div>
+    <div class="body">
+      <ol class="insights">
+        <li><span class="n">39 min</span><p>of staff time went to one Cricut sticker job, and at the end both staff members.</p></li>
+        <li><span class="n">02</span><p>The information exists, but people can't find it: a posted sheet said files could be emailed to the printer, yet a visitor still had to ask.</p></li>
+        <li><span class="n">03</span><p>Instructions read like staff reminders: handwritten charts, taped printouts and laminated sheets in many formats. I couldn't follow them myself.</p></li>
+        <li><span class="n">04</span><p>Storage hides its contents: a visitor opened drawer after drawer to find scissors.</p></li>
+        <li><span class="n">05</span><p>The human help is what works: visitors valued patient one-on-one attention, something a video at home can't give.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m5">
+    <div class="side"><span class="no">V</span><span class="label">Design decisions</span><h2 id="m5">Support the staff, don't replace them</h2></div>
+    <div class="body">
+      <p>This was a research study, so the output was a design opportunity: help visitors find materials and understand the steps to their own goal, while keeping the personal help they value.</p>
+      <ul>
+        <li>Labels on storage that match the labels in the instructions</li>
+        <li>Step-by-step guides for one task at a time on complex machines like the Cricut</li>
+        <li>A way to check print status, like order tracking in online shopping (visibility of system status)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m6">
+    <div class="side"><span class="no">VI</span><span class="label">Outcomes / evaluation</span><h2 id="m6">11 out of 15</h2></div>
+    <div class="body">
+      <p>I scored the domain 11/15: easy access to users, but too broad, since every visitor brought a different tool and problem. In one hour I collected individual stories more than patterns.</p>
+    </div>
+  </section>
+
+  <section class="chapter grid pad" aria-labelledby="m7">
+    <div class="side"><span class="no">VII</span><span class="label">Reflection &amp; next steps</span><h2 id="m7">Not designing for myself</h2></div>
+    <div class="body">
+      <p>I've used makerspaces before and my art background makes me comfortable with craft materials, so I had to be careful not to design for myself. That's why I focused on older walk-in visitors instead of students like me.</p>
+      <p>Next: more visits to see which problems keep happening, and narrowing the scope to one machine, the Cricut.</p>
+    </div>
+  </section>
+
+  <div class="pad">
+    <a class="next" href="#sort-it-out-chicago">
+      <span class="label">Back to</span>
+      <h2>Sort It Out Chicago →</h2>
+    </a>
+  </div>
+</div>
+
+
 <div class="view" data-view="about" hidden>
   <div class="page-top pad"><span class="label">Painter · Scenic artist · Designer</span><h1 class="rise">About</h1></div>
   <section class="about grid pad">
-    <div class="ph-wrap"><div class="ph r-45"><img src="img/ccb-portrait-1400.webp" sizes="(min-width: 900px) 40vw, 100vw" alt="Portrait of Daniela Marin, arms crossed, in front of the ribbon painting"  decoding="async" style="object-position:50% 30%"></div></div>
+    <div class="ph-wrap"><div class="ph r-45"><img src="img/ccb-portrait-1400.webp" sizes="(min-width: 900px) 40vw, 100vw" alt="Portrait of Daniela Marin, arms crossed, in front of the ribbon painting" loading="lazy" decoding="async" style="object-position:50% 30%"></div></div>
     <div class="text">
       <p class="lead">I design how people experience space: on walls, on stages and on screens.</p>
       <p>Born in Bogotá. BFA in painting from SCAD. Since 2015 I've painted scenery for Disney, Universal and National Geographic, including leading a scenic paint team in Tokyo. My public art is in Englewood, Colorado. Today I'm a graphic designer and an MA student in human-computer interaction at DePaul.</p>
-      <p><span class="fill">Rewrite in your own voice.</span></p>
     </div>
   </section>
 </div>
 
-<!-- ================= COMMISSION ================= -->
-<div class="view" data-view="commission" hidden>
-  <div class="page-top pad"><span class="label">Art made for your walls, your light and your story</span><h1 class="rise">Commission</h1></div>
-  <div class="pad">
-    <ol class="how">
-      <li><span class="no">01</span><h3>We talk</h3><p>You tell me about the space and the people who live in it.</p></li>
-      <li><span class="no">02</span><h3>I propose</h3><p>You see several options and choose a direction.</p></li>
-      <li><span class="no">03</span><h3>You see it in your room</h3><p>I stage the chosen pieces in a rendering of your space.</p></li>
-      <li><span class="no">04</span><h3>I paint</h3><p>With progress updates along the way.</p></li>
-      <li><span class="no">05</span><h3>Delivery</h3><p>The finished work matches what you approved.</p></li>
-    </ol>
-    <p class="label" style="margin-bottom:12px">Get in touch</p>
-    <p class="contact-line"><span class="fill">your email</span></p>
-  </div>
-</div>
 
 </main>
 
@@ -644,7 +1034,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     var h = (location.hash || '').slice(1) || 'projects';
     var v = views.filter(function (x) { return x.dataset.view === h; })[0] || views[0];
     views.forEach(function (x) { x.hidden = x !== v; });
-    var section = v.dataset.view === 'casa-cara-blanca' ? 'projects' : v.dataset.view;
+    var section = ['casa-cara-blanca', 'sort-it-out-chicago', 'maker-lab', 'jurassic-world-live', 'beauty-and-the-beast'].indexOf(v.dataset.view) > -1 ? 'projects' : v.dataset.view;
     navLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + section) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     window.scrollTo(0, 0);
     requestAnimationFrame(drawAll);
@@ -767,6 +1157,21 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     input.addEventListener('input', function () { cmp.style.setProperty('--pos', input.value + '%'); });
   });
   var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(drawAll, 150); });
+  /* ---------- Video: plays in the page on the real website (GitHub Pages / danielamarinart.com); the claude.ai preview blocks embedded players, so there it stays a link ---------- */
+  (function () {
+    var h = location.hostname;
+    if (!/(^|\.)danielamarinart\.com$|\.github\.io$/.test(h)) return;
+    document.querySelectorAll('a.videocard[href*="youtube.com/watch?v="]').forEach(function (a) {
+      var id = a.href.split('v=')[1].split('&')[0];
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id;
+      f.title = a.getAttribute('aria-label') || 'Video';
+      f.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      f.allowFullscreen = true; f.loading = 'lazy';
+      f.style.cssText = 'display:block;width:100%;aspect-ratio:16/9;border:0;background:#000';
+      a.replaceWith(f);
+    });
+  })();
   window.addEventListener('hashchange', show);
   show();
 })();
