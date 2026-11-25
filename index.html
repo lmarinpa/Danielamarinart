@@ -389,6 +389,11 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .clamp-more { justify-self: start; align-self: start; margin-top: 14px; font: inherit; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--ink); padding: 0 0 3px; cursor: pointer; }
 
 .ph .card-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.has-video { position: relative; cursor: pointer; }
+.play-badge { position: absolute; z-index: 2; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(16,18,17,.55); border: 1px solid rgba(255,255,255,.8); backdrop-filter: blur(4px); pointer-events: none; }
+.play-badge::after { content: ""; position: absolute; left: 26px; top: 21px; border-style: solid; border-width: 11px 0 11px 17px; border-color: transparent transparent transparent #fff; }
+.vbox video { max-width: 100%; max-height: 100%; display: block; background: #000; }
 </style>
 
 
@@ -561,14 +566,14 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       </li>
       <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st06">
-          <span class="ph r-45"><video class="card-video" src="video/ccb-studio.mp4" poster="img/ccb-studio-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="In the studio: the reliefs and paintings in progress"></video></span>
+          <span class="ph r-45"><img src="img/ccb-studio-tools.webp" alt="The studio during production: a relief panel on the easel, Golden paints and airbrush supplies" loading="lazy" decoding="async" style="object-position:30% 40%"></span>
           <span class="veil" id="st06"><span class="label">05 · In the studio</span><span>Each piece was built and painted in the studio. The reliefs were modeled on wood panels, then painted with airbrush and brush using professional Golden paints, chosen for quality and longevity.</span></span>
         </button>
         <div class="cap"><span class="no">05</span><h3>In the studio</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
       </li>
       <li>
         <button class="reveal" type="button" aria-expanded="false" aria-controls="st07">
-          <span class="ph r-45"><img src="img/ccb-house-exterior-1400.webp" alt="The house seen from the driveway, its cantilevered volumes above a planted slope" loading="lazy" decoding="async" style="object-position:45% 50%"></span>
+          <span class="ph r-45 has-video" data-video="video/ccb-delivery-full.mp4" data-video-label="Delivery: the finished works ready to go"><span class="play-badge" aria-hidden="true"></span><img src="img/ccb-house-exterior-1400.webp" alt="The house seen from the driveway, its cantilevered volumes above a planted slope" loading="lazy" decoding="async" style="object-position:45% 50%"></span>
           <span class="veil" id="st07"><span class="label">06 · Delivery</span><span>The finished works were packed, transported and delivered to the house ready for installation, with a story for each piece and care instructions for the family.</span></span>
         </button>
         <div class="cap"><span class="no">06</span><h3>Delivery</h3><span class="hint"><span class="h">Hover to read</span><span class="t">Tap to read</span></span></div>
@@ -1499,6 +1504,27 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     window.addEventListener('hashchange', later); window.addEventListener('resize', later); window.addEventListener('load', later);
     document.addEventListener('load', function (e) { if (e.target.tagName === 'IMG') later(); }, true);
     later();
+  })();
+
+  /* ---------- Cards with a video: click the picture to watch with sound ---------- */
+  (function () {
+    var els = document.querySelectorAll('.has-video'); if (!els.length) return;
+    var d = document.createElement('dialog'); d.className = 'lb vbox'; d.setAttribute('aria-label', 'Video');
+    d.innerHTML = '<div class="stage"><video controls playsinline preload="metadata"></video></div><p class="cap"></p><button type="button" class="x">Close \u2715</button>';
+    document.body.appendChild(d);
+    var v = d.querySelector('video'), cap = d.querySelector('.cap');
+    function close() { v.pause(); if (d.close) d.close(); else d.removeAttribute('open'); }
+    d.querySelector('.x').addEventListener('click', close);
+    d.addEventListener('click', function (e) { if (e.target === d || e.target.classList.contains('stage')) close(); });
+    d.addEventListener('close', function () { v.pause(); });
+    els.forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        v.src = el.getAttribute('data-video'); cap.textContent = el.getAttribute('data-video-label') || '';
+        if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+        var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+      });
+    });
   })();
   /* ---------- Welcome video: muted autoplay, sound by choice, pauses off-screen ---------- */
   (function () {
