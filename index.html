@@ -1529,6 +1529,15 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       });
     });
   })();
+  /* ---------- Welcome video opens the Casa Cara Blanca project ---------- */
+  (function () {
+    var v = document.getElementById('welcome-video'); if (!v) return;
+    v.style.cursor = 'pointer'; v.setAttribute('role', 'link'); v.tabIndex = 0;
+    v.setAttribute('title', 'View the Casa Cara Blanca project');
+    function go() { location.hash = '#casa-cara-blanca'; window.scrollTo(0, 0); }
+    v.addEventListener('click', function (e) { if (!v.controls) go(); });
+    v.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+  })();
   /* ---------- Welcome video: muted autoplay, sound by choice, pauses off-screen ---------- */
   (function () {
     var v = document.getElementById('welcome-video'), btn = document.getElementById('welcome-sound');
