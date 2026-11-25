@@ -32,7 +32,7 @@
 /* Casa Cara Blanca: wall gray sampled from the house's plaster walls */
 body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall-2: #cdcec9; --ink-soft: #4d524f; --line: #b5b7b1; --fill-ink: #6b5213; }
 /* The works: a white gallery wall */
-[data-view="casa-cara-blanca"] .works { background: #fff; padding-top: clamp(48px, 7vw, 104px); }
+[data-view="casa-cara-blanca"] .works, .jw-works { background: #fff; padding-top: clamp(48px, 7vw, 104px); }
 [data-view="casa-cara-blanca"] .works .ph { background: #f1f1ef; }
 /* Sort It Out Chicago: real prototype screens */
 .sio-hero { background: #e8ece4; }
@@ -755,6 +755,21 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     </dl>
   </section>
 
+  <section class="works pad jw-works" aria-labelledby="jw-works-h">
+    <div class="works-head"><h2 id="jw-works-h">The work</h2></div>
+    <div class="works-grid squares">
+      <figure class="zoom"><div class="ph"><img src="img/jw-trex-raw.webp" alt="The T. rex head in the shop, raw skin before any color" loading="lazy" decoding="async" style="object-position:50% 30%"></div><figcaption class="wall-label"><span class="t">Before paint</span><span>The T. rex head in the shop, raw skin before any color</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-trex-painting.webp" alt="The full-size T. rex being painted from ladders and scaffolding" loading="lazy" decoding="async" style="object-position:45% 50%"></div><figcaption class="wall-label"><span class="t">Painting the T. rex</span><span>The full-size T. rex being painted from ladders and scaffolding</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-blue-side.webp" alt="The raptor Blue on its stand in the paint booth" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Blue, in the paint booth</span><span>The raptor Blue on its stand in the paint booth</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-blue-head.webp" alt="Layered blues, highlights and scale-by-scale detail on the head" loading="lazy" decoding="async" style="object-position:55% 45%"></div><figcaption class="wall-label"><span class="t">Blue, detail</span><span>Layered blues, highlights and scale-by-scale detail on the head</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-blue-profile.webp" alt="The painted pattern running from head to tail" loading="lazy" decoding="async" style="object-position:35% 50%"></div><figcaption class="wall-label"><span class="t">Blue, profile</span><span>The painted pattern running from head to tail</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-juvenile.webp" alt="A smaller animatronic with its painted skin" loading="lazy" decoding="async" style="object-position:55% 50%"></div><figcaption class="wall-label"><span class="t">Juvenile dinosaur</span><span>A smaller animatronic with its painted skin</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-stage-fire.webp" alt="The T. rex in the arena show" loading="lazy" decoding="async" style="object-position:70% 50%"></div><figcaption class="wall-label"><span class="t">On tour</span><span>The T. rex in the arena show</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-stage-gyro.webp" alt="A raptor meets the gyrosphere on the arena floor" loading="lazy" decoding="async" style="object-position:70% 50%"></div><figcaption class="wall-label"><span class="t">On tour</span><span>A raptor meets the gyrosphere on the arena floor</span></figcaption></figure>
+      <figure class="zoom"><div class="ph"><img src="img/jw-stage-flare.webp" alt="The T. rex at night, seen from the audience" loading="lazy" decoding="async" style="object-position:70% 40%"></div><figcaption class="wall-label"><span class="t">On tour</span><span>The T. rex at night, seen from the audience</span></figcaption></figure>
+    </div>
+  </section>
+
   <section class="chapter grid pad" aria-labelledby="j1">
     <div class="side"><span class="no">I</span><span class="label">Problem &amp; context</span><h2 id="j1">Skin that moves</h2></div>
     <div class="body">
@@ -1407,9 +1422,10 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     d.innerHTML = '<div class="stage"><img alt=""></div><p class="cap"></p><button type="button" class="x">Close ✕</button><button type="button" class="prev" aria-label="Previous work">‹</button><button type="button" class="next" aria-label="Next work">›</button>';
     document.body.appendChild(d);
     var big = d.querySelector('img'), cap = d.querySelector('.cap'), cur = 0;
+    var seq = figs;
     function show(i) {
-      cur = (i + figs.length) % figs.length;
-      var im = figs[cur].querySelector('img'), fc = figs[cur].querySelector('figcaption');
+      cur = (i + seq.length) % seq.length;
+      var im = seq[cur].querySelector('img'), fc = seq[cur].querySelector('figcaption');
       var src = im.currentSrc || im.src, set = im.getAttribute('srcset');
       if (set) { var c = set.split(',').map(function (x) { return x.trim().split(' ')[0]; }); src = c[c.length - 1]; }
       if (im.getAttribute('data-full')) src = im.getAttribute('data-full');
@@ -1419,7 +1435,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     figs.forEach(function (f, i) {
       var ph = f.querySelector('.ph'); ph.setAttribute('role', 'button'); ph.tabIndex = 0;
       ph.setAttribute('aria-label', 'Open full size: ' + (f.querySelector('img').alt || 'artwork'));
-      function open() { show(i); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); }
+      function open() { seq = Array.prototype.slice.call(f.closest('.works-grid').querySelectorAll('figure')); show(seq.indexOf(f)); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); }
       ph.addEventListener('click', open);
       ph.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
     });
