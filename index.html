@@ -354,11 +354,6 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .works-grid.squares .ph img { width: 100%; height: 100%; object-fit: cover; }
 .works-grid.squares .wall-label { display: none; }
 .cs-top .back { display: none; }
-[data-view="casa-cara-blanca"] .cs-intro { padding-block: 8px clamp(28px, 3vw, 40px); row-gap: 16px; }
-[data-view="casa-cara-blanca"] .cs-intro .lead { font-size: clamp(1rem, .9rem + .4vw, 1.2rem); line-height: 1.45; font-weight: 300; max-width: 46ch; }
-[data-view="casa-cara-blanca"] .cs-intro .spec { font-size: var(--t-small); }
-@media (min-width: 900px) { [data-view="casa-cara-blanca"] .cs-intro .lead { grid-column: 1 / 7; } [data-view="casa-cara-blanca"] .cs-intro .spec { grid-column: 8 / 13; gap: 6px 20px; } }
-[data-view="casa-cara-blanca"] .cs-top { padding-bottom: 16px; }
 [data-view="casa-cara-blanca"] .works { padding-top: clamp(32px, 4vw, 56px); }
 .works-grid.squares .ph:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .lb { border: 0; padding: 0; margin: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; background: rgba(16,18,17,.94); color: #fff; }
@@ -382,6 +377,8 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .brief .body p { margin: 0; }
 @media (min-width: 900px) { .brief .media { grid-column: 1 / 5; } .brief .body { grid-column: 6 / 12; } }
 
+.ccb-hero { aspect-ratio: 16 / 9; max-height: 86vh; width: 100%; } .ccb-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; }
+@media (max-width: 700px) { .ccb-hero { aspect-ratio: 4 / 5; } }
 .jw-hero { aspect-ratio: 4 / 3; max-height: 86vh; width: 100%; } .jw-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 49% 12%; }
 @media (max-width: 700px) { .jw-hero { aspect-ratio: 1 / 1; } }
 </style>
@@ -463,17 +460,12 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     <h1 class="rise">Casa Cara Blanca</h1>
   </div>
 
-  <section class="works pad" aria-labelledby="works-h">
-    <div class="works-head"><h2 id="works-h">The works</h2></div>
-    <div class="works-grid squares">
-      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 760px) 66vw, 100vw" alt="Painting of interlaced pink, orange, yellow and blue ribbons on a black ground" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Floating Together</span><span>A poetic reinterpretation of the floating bag in American Beauty (1999), whose power lies not in the object but in stopping to look. The four colors are the four members of the family, floating together without hierarchy, joined by &ldquo;a certain electricity.&rdquo;</span></figcaption></figure>
-      <figure class="wb zoom"><div class="ph r-23"><img src="img/ccb-work-relief-black-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Black relief panel with vertical fluting and a sweeping smooth curve" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">River of Four Currents</span><span>A river carrying four currents, one for each member of the family: each moves at its own rhythm, but all are born of the same riverbed. At the sides, the parents, solid forms that hold and guide the first path. From afar the black reads as one; up close, the light reveals the currents.</span></figcaption></figure>
-      <figure class="wb zoom"><div class="ph r-45"><img src="img/ccb-face-relief-720.webp" data-full="img/ccb-white-portrait-full.webp" alt="White relief painting of a face with closed eyes" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">White Portrait</span><span>Painting and sculpture as one language: the organic forms are modeled in relief, and the face is painted. Painting gains a physical presence, and sculpture becomes image.</span></figcaption></figure>
-      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Painting of a floating bloom of orange, pink, violet and blue folds on a pale grey ground" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">The Four-Color Flower</span><span>An organic, abstract form that could be a coral, a flower or a presence suspended in the cosmos. The four colors are traces of the family members, individuals growing together as one living body.</span></figcaption></figure>
-      <figure class="wc zoom"><div class="ph r-45"><img src="img/ccb-balance-1.webp" alt="Balance I: stacked geometric forms in orange, grey, pink and blue on a grey ground" loading="lazy" decoding="async"></div><figcaption class="wall-label"><span class="t">Balance I</span><span>Compositions that blur the line between sculpture and painting, built from four colors. Each color is one member of the family, and the family appears not as a literal figure but as a system of forces that hold each other up.</span></figcaption></figure>
-      <figure class="wc zoom"><div class="ph r-45"><img src="img/ccb-balance-2.webp" alt="Balance II: a sphere, triangles and a ribbon in blue, orange and pink on a grey ground" loading="lazy" decoding="async"></div><figcaption class="wall-label"><span class="t">Balance II</span><span>Compositions that blur the line between sculpture and painting, built from four colors. Each color is one member of the family, and the family appears not as a literal figure but as a system of forces that hold each other up.</span></figcaption></figure>
-    </div>
-  </section>
+  <div class="pad">
+    <figure class="bleed hero-in">
+      <div class="ph ccb-hero"><img src="img/ccb-bedroom-1400.webp" alt="River of Four Currents installed above the bed in the main bedroom" fetchpriority="high" decoding="async"></div>
+      <figcaption><span class="label">Casa Cara Blanca</span><span>River of Four Currents, installed in the main bedroom</span></figcaption>
+    </figure>
+  </div>
 
   <section class="cs-intro grid pad">
     <p class="lead">A series of abstract portraits of one family, created for the architecture and light of their home. Below is the process behind the project.</p>
@@ -484,6 +476,18 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       <dt>With</dt><dd>Interior designer / architect</dd>
       <dt>Role</dt><dd>Concept, proposals, renderings, painting, delivery</dd>
     </dl>
+  </section>
+
+  <section class="works pad" aria-labelledby="works-h">
+    <div class="works-head"><h2 id="works-h">The works</h2></div>
+    <div class="works-grid squares">
+      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 760px) 66vw, 100vw" alt="Painting of interlaced pink, orange, yellow and blue ribbons on a black ground" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">Floating Together</span><span>A poetic reinterpretation of the floating bag in American Beauty (1999), whose power lies not in the object but in stopping to look. The four colors are the four members of the family, floating together without hierarchy, joined by &ldquo;a certain electricity.&rdquo;</span></figcaption></figure>
+      <figure class="wb zoom"><div class="ph r-23"><img src="img/ccb-work-relief-black-1400.webp" sizes="(min-width: 760px) 33vw, 100vw" alt="Black relief panel with vertical fluting and a sweeping smooth curve" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">River of Four Currents</span><span>A river carrying four currents, one for each member of the family: each moves at its own rhythm, but all are born of the same riverbed. At the sides, the parents, solid forms that hold and guide the first path. From afar the black reads as one; up close, the light reveals the currents.</span></figcaption></figure>
+      <figure class="wb zoom"><div class="ph r-45"><img src="img/ccb-face-relief-720.webp" data-full="img/ccb-white-portrait-full.webp" alt="White relief painting of a face with closed eyes" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">White Portrait</span><span>Painting and sculpture as one language: the organic forms are modeled in relief, and the face is painted. Painting gains a physical presence, and sculpture becomes image.</span></figcaption></figure>
+      <figure class="wa zoom"><div class="ph r-32"><img src="img/ccb-work-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Painting of a floating bloom of orange, pink, violet and blue folds on a pale grey ground" loading="lazy" decoding="async" style="object-position:50% 50%"></div><figcaption class="wall-label"><span class="t">The Four-Color Flower</span><span>An organic, abstract form that could be a coral, a flower or a presence suspended in the cosmos. The four colors are traces of the family members, individuals growing together as one living body.</span></figcaption></figure>
+      <figure class="wc zoom"><div class="ph r-45"><img src="img/ccb-balance-1.webp" alt="Balance I: stacked geometric forms in orange, grey, pink and blue on a grey ground" loading="lazy" decoding="async"></div><figcaption class="wall-label"><span class="t">Balance I</span><span>Compositions that blur the line between sculpture and painting, built from four colors. Each color is one member of the family, and the family appears not as a literal figure but as a system of forces that hold each other up.</span></figcaption></figure>
+      <figure class="wc zoom"><div class="ph r-45"><img src="img/ccb-balance-2.webp" alt="Balance II: a sphere, triangles and a ribbon in blue, orange and pink on a grey ground" loading="lazy" decoding="async"></div><figcaption class="wall-label"><span class="t">Balance II</span><span>Compositions that blur the line between sculpture and painting, built from four colors. Each color is one member of the family, and the family appears not as a literal figure but as a system of forces that hold each other up.</span></figcaption></figure>
+    </div>
   </section>
 
 
@@ -607,7 +611,6 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     </div>
     <div class="wide essay">
       <figure class="zoom"><div class="ph r-43"><img src="img/ccb-geometric-pair-angle-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="Balance I and II installed in the hallway" loading="lazy" decoding="async"></div><figcaption><span class="label">Installed</span><span>Balance I and II, hallway</span></figcaption></figure>
-      <figure class="zoom"><div class="ph r-43"><img src="img/ccb-bedroom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="River of Four Currents installed in the main bedroom" loading="lazy" decoding="async" style="object-position:50% 40%"></div><figcaption><span class="label">Installed</span><span>River of Four Currents, main bedroom</span></figcaption></figure>
     </div>
   </section>
 
