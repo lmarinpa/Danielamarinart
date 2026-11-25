@@ -57,6 +57,10 @@ body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall
 @media (max-width: 700px) { .welcome video { aspect-ratio: 4 / 5; } }
 .welcome .sound { position: absolute; right: max(16px, var(--gutter-r)); bottom: 16px; font: inherit; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: #fff; background: rgba(29,34,31,.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.7); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
 .welcome .sound:hover { background: rgba(29,34,31,.7); }
+.welcome::after { content: ""; position: absolute; inset: 45% 0 0 0; background: linear-gradient(to bottom, rgba(16,18,17,0), rgba(16,18,17,.6)); pointer-events: none; }
+.welcome .tagline { position: absolute; z-index: 1; left: var(--gutter-l); right: max(170px, var(--gutter-r)); bottom: clamp(20px, 4vw, 56px); margin: 0; color: #fff; font-size: clamp(2rem, 1.2rem + 4vw, 5.2rem); font-weight: 200; font-stretch: 72%; text-transform: uppercase; line-height: .92; max-width: 14ch; text-shadow: 0 1px 24px rgba(0,0,0,.25); }
+@media (max-width: 700px) { .welcome .tagline { right: var(--gutter-r); bottom: 72px; } }
+.welcome .sound { z-index: 2; }
 .trusted { display: grid; gap: 14px; }
 .chapter .body ul.brands, .brands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); border-left: 1px solid var(--line); }
 @media (min-width: 640px) { .chapter .body ul.brands, .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -342,6 +346,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   <div class="pad">
     <figure class="bleed welcome">
       <video id="welcome-video" src="video/home-banner.mp4" poster="img/home-banner-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Welcome video: a walk through a home with Daniela's paintings and reliefs, from the pool and living room to the bedroom and the glass hallway"></video>
+      <h1 class="tagline rise">Art that gives your space its identity.</h1>
       <button type="button" class="sound" id="welcome-sound" aria-pressed="false">Sound on</button>
     </figure>
   </div>
