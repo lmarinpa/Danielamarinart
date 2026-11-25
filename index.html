@@ -343,6 +343,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   .tile:hover .cap, .tile:focus-visible .cap { opacity: 1; transform: none; }
   .tile:hover .sq img { transform: scale(1.04); }
 }
+.tile .sq .tile-yt { position: absolute; top: 0; left: 50%; height: 100%; width: 177.78%; transform: translateX(-50%); border: 0; pointer-events: none; background: #000; }
 </style>
 
 
@@ -382,7 +383,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       <div class="cap"><span class="label">Commission · Private residence</span><h2>Casa Cara Blanca</h2></div>
     </a>
     <a class="tile" href="#beauty-and-the-beast">
-      <div class="sq videocard" aria-hidden="true"><span class="vc"><span class="play"></span></span></div>
+      <div class="sq videocard" data-yt="plcgsCkU0xw" aria-hidden="true"><span class="vc"><span class="play"></span></span></div>
       <div class="cap"><span class="label">Scenic · Tokyo Disneyland</span><h2>Beauty and the Beast</h2></div>
     </a>
     <a class="tile" href="#jurassic-world-live">
@@ -1346,6 +1347,17 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       f.allowFullscreen = true; f.loading = 'lazy';
       f.style.cssText = 'display:block;width:100%;aspect-ratio:16/9;border:0;background:#000';
       a.replaceWith(f);
+    });
+    /* Homepage tile: the attraction video plays muted and looping inside the square; the tile still opens the project */
+    document.querySelectorAll('.tile .sq[data-yt]').forEach(function (sq) {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var id = sq.getAttribute('data-yt');
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&mute=1&loop=1&playlist=' + id + '&controls=0&playsinline=1&modestbranding=1&rel=0';
+      f.title = 'Beauty and the Beast at Tokyo Disneyland, muted preview';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture'; f.tabIndex = -1;
+      f.className = 'tile-yt';
+      sq.textContent = ''; sq.appendChild(f);
     });
   })();
   /* ---------- Welcome video: muted autoplay, sound by choice, pauses off-screen ---------- */
