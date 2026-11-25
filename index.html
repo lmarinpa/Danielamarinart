@@ -403,10 +403,9 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .trusted-sec { padding-block: clamp(24px, 4vw, 56px) clamp(40px, 6vw, 88px); }
 .trusted-sec .trusted { display: grid; gap: 18px; }
 
-/* Homepage: the welcome video stays put and the content slides up over it */
-.welcome-wrap { position: sticky; top: 0; z-index: 0; }
-[data-view="projects"] > section { position: relative; z-index: 1; background: var(--wall); }
-[data-view="projects"] > section.statement { box-shadow: 0 -24px 48px rgba(16,18,17,.18); }
+/* Homepage welcome video: capped size on large screens */
+.welcome { max-width: 1440px; margin-inline: auto !important; }
+.welcome video { max-height: 78vh; }
 </style>
 
 
@@ -425,7 +424,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 
 <!-- ================= PROJECTS (home) ================= -->
 <div class="view" data-view="projects">
-  <div class="pad welcome-wrap">
+  <div class="pad">
     <figure class="bleed welcome">
       <video id="welcome-video" src="video/home-banner-v3.mp4" poster="img/home-banner-poster.webp" autoplay muted loop playsinline preload="auto" aria-label="Welcome video: a walk through a home with Daniela's paintings and reliefs, from the pool and living room to the bedroom and the glass hallway"></video>
       <button type="button" class="sound" id="welcome-sound" aria-pressed="false">Sound on</button>
