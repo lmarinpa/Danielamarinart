@@ -52,6 +52,11 @@ body:has([data-view="casa-cara-blanca"]:not([hidden])) { --wall: #cdcec9; --wall
 .ba li { display: grid; grid-template-columns: 1fr; gap: 6px 24px; padding-block: 16px; border-bottom: 1px solid var(--line); font-size: var(--t-small); }
 .ba b { font-weight: 400; }
 @media (min-width: 760px) { .ba li { grid-template-columns: 1fr 1fr; } }
+.welcome { position: relative; display: block; background: #1d221f; }
+.welcome video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+@media (max-width: 700px) { .welcome video { aspect-ratio: 4 / 5; } }
+.welcome .sound { position: absolute; right: max(16px, var(--gutter-r)); bottom: 16px; font: inherit; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: #fff; background: rgba(29,34,31,.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.7); border-radius: 999px; padding: 10px 16px; cursor: pointer; }
+.welcome .sound:hover { background: rgba(29,34,31,.7); }
 .trusted { display: grid; gap: 14px; }
 .chapter .body ul.brands, .brands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); border-left: 1px solid var(--line); }
 @media (min-width: 640px) { .chapter .body ul.brands, .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -335,9 +340,9 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 <!-- ================= PROJECTS (home) ================= -->
 <div class="view" data-view="projects">
   <div class="pad">
-    <figure class="bleed hero-in hero-pair">
-      <div class="ph r-45"><img src="img/ccb-hallway-bloom-1400.webp" sizes="(min-width: 760px) 50vw, 100vw" alt="A large painting of luminous orange, pink and violet folds on a grey ground, lit by a warm cove light in a long gallery hallway" fetchpriority="high" decoding="async" style="object-position:50% 50%"></div>
-      <div class="ph r-45"><img src="img/ccb-living-room-seated-1400.webp" sizes="50vw" alt="Daniela seated in the living room, with the white face relief painting in the background" fetchpriority="high" decoding="async" style="object-position:40% 50%"></div>
+    <figure class="bleed welcome">
+      <video id="welcome-video" src="video/home-banner.mp4" poster="img/home-banner-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Welcome video: a walk through a home with Daniela's paintings and reliefs, from the pool and living room to the bedroom and the glass hallway"></video>
+      <button type="button" class="sound" id="welcome-sound" aria-pressed="false">Sound on</button>
     </figure>
   </div>
 
@@ -1343,6 +1348,19 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
       f.style.cssText = 'display:block;width:100%;aspect-ratio:16/9;border:0;background:#000';
       a.replaceWith(f);
     });
+  })();
+  /* ---------- Welcome video: muted autoplay, sound by choice, pauses off-screen ---------- */
+  (function () {
+    var v = document.getElementById('welcome-video'), btn = document.getElementById('welcome-sound');
+    if (!v || !btn) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; }
+    btn.addEventListener('click', function () {
+      v.muted = !v.muted;
+      if (!v.muted) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+      btn.setAttribute('aria-pressed', v.muted ? 'false' : 'true');
+      btn.textContent = v.muted ? 'Sound on' : 'Sound off';
+    });
+    window.addEventListener('hashchange', function () { if (location.hash && location.hash !== '#projects') { v.pause(); } else if (!v.controls) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } });
   })();
   window.addEventListener('hashchange', show);
   show();
