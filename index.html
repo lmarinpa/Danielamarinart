@@ -324,19 +324,24 @@ details.more .inner { display: grid; gap: 18px; padding-top: 22px; }
 footer.site { border-top: 1px solid var(--line); }
 footer.site .bar { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-block: 28px 64px; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
 
-/* Project rows: a row of the project's works on wide screens, one hero image on phones */
-.work .strip { display: none; }
-@media (min-width: 900px) {
-  .work.has-strip .strip { grid-column: 1 / 13; grid-row: 1; display: flex; gap: clamp(10px, 1.4vw, 22px); align-items: flex-end; }
-  .work.has-strip .strip .sp { min-width: 0; display: block; }
-  .work.has-strip .strip img { display: block; width: 100%; height: auto; object-fit: cover; transition: transform .5s ease; }
-  .work.has-strip:hover .strip img { transform: translateY(-6px); }
-  .work.has-strip .strip.phones { background: #e8ece4; padding: clamp(24px, 3vw, 48px); gap: clamp(12px, 2vw, 32px); }
-  .work.has-strip .ph-wrap { display: none; }
-  .work.has-strip .meta { grid-row: 2; grid-column: 1 / 13; display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: var(--gap, 24px); row-gap: 10px; align-items: end; }
-  .work.has-strip .meta > * { grid-column: 1 / 7; }
-  .work.has-strip .meta > p { grid-column: 8 / 13; grid-row: 1 / span 3; align-self: end; }
-  .work.has-strip .meta > .more { grid-column: 8 / 13; }
+/* Project tiles: squares; the name rises in on hover (shown below the image on touch screens) */
+.tiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: clamp(12px, 1.6vw, 24px); }
+@media (min-width: 1000px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.tile { position: relative; display: block; text-decoration: none; color: inherit; overflow: hidden; }
+.tile .sq { aspect-ratio: 1 / 1; width: 100%; position: relative; overflow: hidden; }
+.tile .sq img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s var(--ease); }
+.tile .sq.sio { background: #e8ece4; display: grid; place-items: center; padding: 8% 0 0; }
+.tile .sq.sio img { width: 52%; height: auto; object-fit: contain; align-self: end; }
+.tile .sq.matpanel { grid-template-columns: 1fr; padding: 12%; aspect-ratio: 1 / 1; }
+.tile .sq.matpanel span { font-size: clamp(1.4rem, .8rem + 1.6vw, 2.4rem); }
+.tile .sq.videocard { aspect-ratio: 1 / 1; }
+.tile .cap { display: grid; gap: 8px; padding-top: 14px; padding-bottom: 28px; }
+.tile .cap h2 { font-size: clamp(1.4rem, 1rem + 1.2vw, 2.2rem); line-height: 1; }
+@media (hover: hover) and (min-width: 700px) {
+  .tile .cap { position: absolute; inset: auto 0 0 0; padding: 48px 20px 20px; color: #fff; background: linear-gradient(to bottom, rgba(16,18,17,0), rgba(16,18,17,.72)); opacity: 0; transform: translateY(12px); transition: opacity .4s var(--ease), transform .4s var(--ease); pointer-events: none; }
+  .tile .cap .label { color: rgba(255,255,255,.8); }
+  .tile:hover .cap, .tile:focus-visible .cap { opacity: 1; transform: none; }
+  .tile:hover .sq img { transform: scale(1.04); }
 }
 </style>
 
@@ -371,48 +376,22 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     </div>
   </section>
 
-  <section class="selected pad" aria-label="Selected work">
-    <a class="work w1 grid has-strip" href="#casa-cara-blanca">
-      <div class="strip" aria-hidden="false"><span class="sp" style="flex:1.501"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 900px) 30vw, 1px" alt="Floating Together: interlaced pink, orange, yellow and blue ribbons on black" loading="lazy" decoding="async" style="aspect-ratio:1.501;object-position:50% 50%"></span><span class="sp" style="flex:0.800"><img src="img/ccb-work-relief-black-1400.webp" sizes="(min-width: 900px) 30vw, 1px" alt="Black fluted sculptural relief on wood" loading="lazy" decoding="async" style="aspect-ratio:0.800;object-position:50% 50%"></span><span class="sp" style="flex:1.501"><img src="img/ccb-work-bloom-1400.webp" sizes="(min-width: 900px) 30vw, 1px" alt="Bloom painting for the hallway" loading="lazy" decoding="async" style="aspect-ratio:1.501;object-position:50% 50%"></span><span class="sp" style="flex:0.800"><img src="img/ccb-white-face-detail-1400.webp" sizes="(min-width: 900px) 30vw, 1px" alt="Detail of the white face relief" loading="lazy" decoding="async" style="aspect-ratio:0.800;object-position:50% 50%"></span><span class="sp" style="flex:1.501"><img src="img/ccb-work-geometric-pair-1400.webp" sizes="(min-width: 900px) 30vw, 1px" alt="Pair of geometric paintings" loading="lazy" decoding="async" style="aspect-ratio:1.501;object-position:50% 50%"></span></div>
-      <div class="ph-wrap"><div class="ph r-43"><img src="img/ccb-bedroom-1400.webp" sizes="(min-width: 900px) 66vw, 100vw" alt="The main bedroom, with wood panelling, warm cove lighting and a black fluted relief panel on the wall" loading="lazy" decoding="async" style="object-position:50% 50%"></div></div>
-      <div class="meta">
-        <span class="num">01</span>
-        <span class="label">Commission · Private residence</span>
-        <h2>Casa Cara Blanca</h2>
-        <p>A family, a house and walls that didn't yet tell their story. Paintings promised before they were painted, and delivered as promised.</p>
-        <span class="more">View project</span>
-      </div>
+  <section class="selected tiles pad" aria-label="Selected work">
+    <a class="tile" href="#casa-cara-blanca">
+      <div class="sq"><img src="img/ccb-work-ribbons-1400.webp" sizes="(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw" alt="Floating Together, a painting of interlaced ribbons on black" loading="lazy" decoding="async" style="object-position:40% 50%"></div>
+      <div class="cap"><span class="label">Commission · Private residence</span><h2>Casa Cara Blanca</h2></div>
     </a>
-    <a class="work w2 grid" href="#beauty-and-the-beast">
-      <div class="ph-wrap"><span class="videocard" aria-hidden="true"><span class="vc"><span class="play"></span><span class="vt">Tokyo Disneyland</span><span class="vs">Watch the attraction</span></span></span></div>
-      <div class="meta">
-        <span class="num">02</span>
-        <span class="label">Scenic · Tokyo Disneyland</span>
-        <h2>Beauty and the Beast</h2>
-        <p>Leading the paint team for a production valued at more than two million dollars.</p>
-        <span class="more">View project</span>
-      </div>
+    <a class="tile" href="#beauty-and-the-beast">
+      <div class="sq videocard" aria-hidden="true"><span class="vc"><span class="play"></span></span></div>
+      <div class="cap"><span class="label">Scenic · Tokyo Disneyland</span><h2>Beauty and the Beast</h2></div>
     </a>
-    <a class="work w3 grid" href="#jurassic-world-live">
-      <div class="ph-wrap"><div class="matpanel" role="img" aria-label="Fabric, fiberglass, silicone and latex"><span>Fabric</span><span>Fiberglass</span><span>Silicone</span><span>Latex</span></div></div>
-      <div class="meta">
-        <span class="num">03</span>
-        <span class="label">Scenic · Animax Designs · 2019–2020</span>
-        <h2>Jurassic World Live Tour</h2>
-        <p>Life-size animatronic dinosaurs, and the painting procedures behind their skins.</p>
-        <span class="more">View project</span>
-      </div>
+    <a class="tile" href="#jurassic-world-live">
+      <div class="sq matpanel" role="img" aria-label="Fabric, fiberglass, silicone and latex"><span>Fabric</span><span>Fiberglass</span><span>Silicone</span><span>Latex</span></div>
+      <div class="cap"><span class="label">Scenic · Animax Designs</span><h2>Jurassic World Live Tour</h2></div>
     </a>
-    <a class="work w4 grid has-strip" href="#sort-it-out-chicago">
-      <div class="strip phones" aria-hidden="false"><span class="sp" style="flex:0.603"><img src="img/sio-home.webp" alt="Home screen" loading="lazy" decoding="async" style="aspect-ratio:0.603;object-position:50% 50%"></span><span class="sp" style="flex:0.603"><img src="img/sio-suggest.webp" alt="Search suggestions" loading="lazy" decoding="async" style="aspect-ratio:0.603;object-position:50% 50%"></span><span class="sp" style="flex:0.603"><img src="img/sio-result.webp" alt="Sorting answer" loading="lazy" decoding="async" style="aspect-ratio:0.603;object-position:50% 50%"></span><span class="sp" style="flex:0.603"><img src="img/sio-numbers.webp" alt="Numbered plastics guide" loading="lazy" decoding="async" style="aspect-ratio:0.603;object-position:50% 50%"></span><span class="sp" style="flex:0.603"><img src="img/sio-nomatch.webp" alt="No-match screen" loading="lazy" decoding="async" style="aspect-ratio:0.603;object-position:50% 50%"></span></div>
-      <div class="ph-wrap"><div class="ph r-169 sio-hero"><img src="img/sio-card-1400.webp" sizes="(min-width: 900px) 58vw, 100vw" alt="Phone screens of the Sort It Out Chicago prototype: a cardboard sorting answer and the project's About page" loading="lazy" decoding="async" style="object-fit:contain"></div></div>
-      <div class="meta">
-        <span class="num">04</span>
-        <span class="label">Design &amp; UX · DePaul · 2026</span>
-        <h2>Sort It Out Chicago</h2>
-        <p>Helping Chicago residents find which bin an item belongs in, before they give up and use the trash.</p>
-        <span class="more">View case study</span>
-      </div>
+    <a class="tile" href="#sort-it-out-chicago">
+      <div class="sq sio"><img src="img/sio-result.webp" alt="Sort It Out Chicago sorting answer screen" loading="lazy" decoding="async"></div>
+      <div class="cap"><span class="label">Design &amp; UX · DePaul</span><h2>Sort It Out Chicago</h2></div>
     </a>
   </section>
 
