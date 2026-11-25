@@ -355,16 +355,17 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .works-grid.squares .ph:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .lb { border: 0; padding: 0; margin: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; background: rgba(16,18,17,.94); color: #fff; }
 .lb::backdrop { background: rgba(16,18,17,.94); }
-.lb[open] { display: grid; grid-template-rows: 1fr auto; }
-.lb .stage { min-height: 0; display: grid; place-items: center; padding: 56px 64px 8px; }
-.lb .stage img { max-width: 100%; max-height: calc(100dvh - 160px); width: auto; height: auto; object-fit: contain; display: block; }
-.lb .cap { padding: 12px 24px 24px; text-align: center; font-size: var(--t-small); color: rgba(255,255,255,.75); max-width: 60ch; margin-inline: auto; }
+.lb[open] { display: flex; flex-direction: column; position: fixed; inset: 0; overflow: hidden; }
+.lb .stage { flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 56px 64px 8px; }
+.lb .stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.lb .cap { flex: 0 0 auto; margin-top: 0; margin-bottom: 0; padding: 12px 24px 24px; line-height: 1.5; text-align: center; font-size: var(--t-small); color: rgba(255,255,255,.75); max-width: 60ch; margin-inline: auto; }
+.lb .cap span { display: block; color: rgba(255,255,255,.82); }
 .lb .cap .t { display: block; color: #fff; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 4px; }
 .lb button { position: absolute; background: none; border: 0; color: #fff; font: inherit; cursor: pointer; padding: 12px 16px; font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; }
 .lb .x { top: 8px; right: 8px; }
 .lb .prev, .lb .next { top: 50%; transform: translateY(-50%); font-size: 2rem; letter-spacing: 0; }
 .lb .prev { left: 4px; } .lb .next { right: 4px; }
-@media (max-width: 600px) { .lb .stage { padding: 52px 8px 8px; } .lb .prev, .lb .next { top: auto; bottom: 8px; transform: none; } }
+@media (max-width: 600px) { .lb .stage { padding: 52px 8px 8px; } .lb .prev, .lb .next { top: 40%; bottom: auto; transform: none; background: rgba(16,18,17,.55); padding: 10px 12px; } }
 </style>
 
 
