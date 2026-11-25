@@ -23,9 +23,9 @@
   --t-label: 0.68rem;
   --t-small: 0.86rem;
   --t-body: clamp(1rem, 0.97rem + 0.15vw, 1.08rem);
-  --t-lead: clamp(1.3rem, 1.05rem + 1.1vw, 2rem);
-  --t-h2: clamp(1.9rem, 1.3rem + 2.6vw, 3.6rem);
-  --t-h1: clamp(2.3rem, 1.5rem + 3.4vw, 4.8rem);
+  --t-lead: clamp(1.05rem, .95rem + .4vw, 1.3rem);
+  --t-h2: clamp(1.15rem, 1rem + .7vw, 1.6rem);
+  --t-h1: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
   --ease: cubic-bezier(.2, .7, .1, 1);
 }
 @media (min-width: 900px) { :root { --gutter-l: max(48px, env(safe-area-inset-left, 0px)); --gutter-r: max(48px, env(safe-area-inset-right, 0px)); } }
@@ -105,7 +105,7 @@ nav.main a[aria-current] { color: var(--ink); border-bottom-color: var(--ink); }
 .ph { position: relative; width: 100%; max-width: 100%; background: var(--wall-2); overflow: hidden; }
 .ph canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: transform 1.6s var(--ease); }
 a:hover .ph canvas, .zoom:hover canvas { transform: scale(1.025); }
-.r-219 { aspect-ratio: 21 / 9; } .r-169 { aspect-ratio: 16 / 9; } .r-32 { aspect-ratio: 3 / 2; } .r-43 { aspect-ratio: 4 / 3; } .r-45 { aspect-ratio: 4 / 5; } .r-23 { aspect-ratio: 2 / 3; } .r-11 { aspect-ratio: 1 / 1; }
+.r-219 { aspect-ratio: 21 / 9; } .r-169 { aspect-ratio: 16 / 9; } .r-32 { aspect-ratio: 3 / 2; } .r-43 { aspect-ratio: 4 / 3; } .r-45 { aspect-ratio: 4 / 5; } .r-23 { aspect-ratio: 2 / 3; } .r-11 { aspect-ratio: 1 / 1; } .r-34 { aspect-ratio: 3 / 4; }
 @media (max-width: 700px) { .m-45 { aspect-ratio: 4 / 5; } }
 figure { margin: 0; display: grid; gap: 12px; }
 figcaption { display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: var(--t-small); color: var(--ink-soft); }
@@ -167,7 +167,7 @@ a:hover .ph img, .zoom:hover .ph img { transform: scale(1.025); }
 .rows { list-style: none; margin: 0; padding: 0; }
 .rows li { position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding-block: 18px; border-bottom: 1px solid var(--line); }
 .rows .n { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; color: var(--ink-soft); }
-.rows h3 { font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.4rem); transition: transform .5s var(--ease); }
+.rows h3 { font-size: clamp(1.1rem, 1rem + .6vw, 1.5rem); transition: transform .5s var(--ease); }
 .rows .k { font-size: var(--t-label); font-stretch: 118%; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); text-align: right; }
 .rows .thumb { display: none; }
 @media (hover: hover) and (min-width: 900px) {
@@ -190,8 +190,8 @@ a:hover .ph img, .zoom:hover .ph img { transform: scale(1.025); }
 
 .chapter { padding-block: clamp(56px, 8vw, 120px); border-top: 1px solid var(--line); row-gap: 28px; }
 .chapter .side { display: grid; gap: 10px; align-content: start; }
-.chapter .side .no { font-size: clamp(2.6rem, 2rem + 2.5vw, 4.4rem); font-weight: 100; font-stretch: 72%; line-height: .9; color: var(--accent); }
-.chapter .side h2 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem); }
+.chapter .side .no { font-size: clamp(1.4rem, 1.2rem + .8vw, 2rem); font-weight: 100; font-stretch: 72%; line-height: .9; color: var(--accent); }
+.chapter .side h2 { font-size: clamp(1.1rem, 1rem + .5vw, 1.45rem); }
 .chapter .body { display: grid; gap: 22px; max-width: 60ch; }
 .chapter .body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
 @media (min-width: 900px) { .chapter .side { grid-column: 1 / 5; } .chapter .body { grid-column: 6 / 12; } .chapter .wide { grid-column: 1 / -1; } }
@@ -336,7 +336,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .tile .sq.matpanel span { font-size: clamp(1.4rem, .8rem + 1.6vw, 2.4rem); }
 .tile .sq.videocard { aspect-ratio: 1 / 1; }
 .tile .cap { display: grid; gap: 8px; padding-top: 14px; padding-bottom: 28px; }
-.tile .cap h2 { font-size: clamp(1.4rem, 1rem + 1.2vw, 2.2rem); line-height: 1; }
+.tile .cap h2 { font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); line-height: 1; }
 @media (hover: hover) and (min-width: 700px) {
   .tile .cap { position: absolute; inset: auto 0 0 0; padding: 48px 20px 20px; color: #fff; background: linear-gradient(to bottom, rgba(16,18,17,0), rgba(16,18,17,.72)); opacity: 0; transform: translateY(12px); transition: opacity .4s var(--ease), transform .4s var(--ease); pointer-events: none; }
   .tile .cap .label { color: rgba(255,255,255,.8); }
@@ -379,7 +379,7 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .brief .body { display: flex !important; flex-direction: column; align-items: flex-start; gap: 16px; }
 .brief .body .side { margin-bottom: 4px; }
 .brief .body p { margin: 0; }
-@media (min-width: 900px) { .brief .media { grid-column: 1 / 6; } .brief .body { grid-column: 7 / 13; } }
+@media (min-width: 900px) { .brief .media { grid-column: 1 / 6; } .brief .body { grid-column: 7 / 13; } .brief.tall .media { grid-column: 2 / 5; } }
 </style>
 
 
@@ -495,17 +495,18 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
   </section>
 
   <!-- II. Role -->
-  <section class="chapter grid pad" aria-labelledby="c2">
-    <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="c2">One hand, start to finish</h2></div>
+  <section class="chapter grid pad brief tall" aria-labelledby="c2">
+    <div class="media"><figure class="house-fig zoom"><div class="ph r-34"><img src="img/ccb-studio-white-portrait-1400.webp" sizes="(min-width: 900px) 36vw, 100vw" alt="The White Portrait relief in progress in the studio, with the airbrush stand, step ladder and paints around it" loading="lazy" decoding="async" style="object-position:50% 40%"></div></figure></div>
     <div class="body">
+      <div class="side"><span class="no">II</span><span class="label">Your role</span><h2 id="c2">One hand, start to finish</h2></div>
       <p>I led the work from the first conversation to the moment each painting went up on the wall.</p>
-      <details class="more"><summary><span class="o">Read more</span><span class="c">Close</span></summary><div class="inner"><ul>
+      <ul>
         <li>Developed the concept that ties each piece to the family</li>
         <li>Proposed a range of works for the family to choose from</li>
         <li>Staged the chosen pieces in renderings of the real rooms</li>
         <li>Coordinated with the interior designer / architect</li>
         <li>Painted and delivered every piece</li>
-      </ul></div></details>
+      </ul>
     </div>
   </section>
 
