@@ -399,6 +399,9 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .brands li img { display: block; width: auto; max-width: 78%; object-fit: contain; }
 .brands img.h-sm { height: 30px; } .brands img.h-md { height: 44px; } .brands img.h-lg { height: 62px; }
 @media (min-width: 900px) { .brands li { min-height: 140px; } .brands img.h-sm { height: 36px; } .brands img.h-md { height: 54px; } .brands img.h-lg { height: 78px; } }
+
+.trusted-sec { padding-block: clamp(24px, 4vw, 56px) clamp(40px, 6vw, 88px); }
+.trusted-sec .trusted { display: grid; gap: 18px; }
 </style>
 
 
@@ -1148,18 +1151,21 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
     </div>
   </section>
 
+  <section class="trusted-sec pad">
+    <div class="trusted" aria-label="Brands she has worked for">
+      <span class="label">Trusted by</span>
+      <ul class="brands">
+        <li><img class="h-md" src="img/logo-disney.png" alt="Disney" loading="lazy" decoding="async"></li><li><img class="h-lg" src="img/logo-universal.png" alt="Universal Studios" loading="lazy" decoding="async"></li><li><img class="h-md" src="img/logo-natgeo.png" alt="National Geographic" loading="lazy" decoding="async"></li><li><img class="h-md" src="img/logo-hgtv.png" alt="HGTV" loading="lazy" decoding="async"></li><li><img class="h-lg" src="img/logo-cirque.png" alt="Cirque du Soleil" loading="lazy" decoding="async"></li><li><img class="h-sm" src="img/logo-nintendo.png" alt="Nintendo" loading="lazy" decoding="async"></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="chapter grid pad" aria-labelledby="ab1">
     <div class="side"><span class="no">I</span><span class="label">Career</span><h2 id="ab1">Studio, stage and street</h2></div>
     <div class="body">
       <p>Her work has been exhibited at the Museum of Outdoor Arts in Colorado, and she took part in Art Basel Week in Miami, represented by Gallery at Avalon Island. In 2024 she was commissioned to create public art for the city of Englewood, Colorado, now on display at Yale &amp; Broadway.</p>
       <p>Alongside her studio practice, she has built an extensive career as a scenic artist and muralist on international projects for Disney, Universal Studios, National Geographic, HGTV, Cirque du Soleil and Nintendo Land. She led the paint team for Beauty and the Beast at Tokyo Disneyland, and her work can be found in Tokyo, Singapore, Los Angeles, Washington, D.C., Miami, Bogotá and Cartagena.</p>
       <p>Early in her career she interned at the de la Cruz Collection (Miami), David Castillo Gallery (Miami Beach), Non Fiction Gallery and the Davenport House Museum (Savannah), working in curatorial and exhibition settings across the United States.</p>
-    </div>
-    <div class="wide trusted" aria-label="Brands she has worked for">
-      <span class="label">Trusted by</span>
-      <ul class="brands">
-        <li><img class="h-md" src="img/logo-disney.png" alt="Disney" loading="lazy" decoding="async"></li><li><img class="h-lg" src="img/logo-universal.png" alt="Universal Studios" loading="lazy" decoding="async"></li><li><img class="h-md" src="img/logo-natgeo.png" alt="National Geographic" loading="lazy" decoding="async"></li><li><img class="h-md" src="img/logo-hgtv.png" alt="HGTV" loading="lazy" decoding="async"></li><li><img class="h-lg" src="img/logo-cirque.png" alt="Cirque du Soleil" loading="lazy" decoding="async"></li><li><img class="h-sm" src="img/logo-nintendo.png" alt="Nintendo" loading="lazy" decoding="async"></li>
-      </ul>
     </div>
   </section>
 
