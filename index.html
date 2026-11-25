@@ -412,7 +412,8 @@ footer.site .bar { display: flex; justify-content: space-between; gap: 12px; fle
 .gallery .wall-label span:not(.t) { display: block; }
 .has-alt .ph { position: relative; }
 .has-alt .ph .alt { position: absolute; inset: 0; opacity: 0; transition: opacity .5s var(--ease); }
-.has-alt:hover .ph .alt, .has-alt:focus-within .ph .alt { opacity: 1; }
+@media (hover: hover) { .has-alt:hover .ph .alt { opacity: 1; } }
+.has-alt .ph .alt { transition-duration: .3s; }
 </style>
 
 
